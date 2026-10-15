@@ -1,0 +1,106 @@
+erDiagram
+    %% Entité Villageois
+
+    Species ||--o{ Villagers : "concerner"
+    Personnalities ||--o{ Villagers : posséder
+
+
+    Villagers {
+        UUID id
+        VARCHAR name
+        VARCHAR image_url
+        DATE birthday
+        UUID specie_id
+        UUID personnality_id
+    }
+    Species {
+        UUID id
+        VARCHAR name
+    }
+    Personnalities {
+        UUID id
+        VARCHAR name
+    }
+
+
+
+    %% Entité Animaux à vendre
+    Insects |o--o{ MonthRangeApparitions : apparaître
+    Fishs |o--o{ MonthRangeApparitions : apparaître
+    SeaCreatures |o--o{ MonthRangeApparitions : apparaître
+    InsectLocations ||--o{ Insects : concerner
+    SeaPlaces ||--o{ Fishs : concerner
+
+    Insects {
+        UUID id
+        VARCHAR name
+        VARCHAR image_url
+        DECIMAL selling_price
+        INT monthly_avalaibility
+        UUID insect_location_id
+        ENUM weather
+    }
+    InsectLocations {
+        UUID id
+        VARCHAR name
+    }
+
+
+    Fishs{
+        UUID id
+        VARCHAR name
+        VARCHAR image_url
+        DECIMAL selling_price
+        INT monthly_avalaibility
+        UUID sea_place_id
+    }
+    SeaPlaces {
+        UUID id
+        VARCHAR name
+    }
+
+    SeaCreatures{
+        UUID id
+        VARCHAR name
+        VARCHAR image_url
+        DECIMAL selling_price
+        INT monthly_avalaibility
+    }
+
+    %% Table polymorphique : indect_id OR fish_id OR sea_creature_id
+    %% Clés d'unicité : 
+    %% - insect_id, month, hemisphere
+    %% - fish_id, month, hemisphere
+    %% - sea_creature_id, month, hemisphere
+    MonthRangeApparitions {
+        UUID id
+        UUID insect_id
+        UUID fish_id
+        UUID sea_creature_id
+        enum month
+        TIME start_hour
+        TIME end_hour
+        ENUM hemisphere
+    }
+
+    %% Entité Meubles
+
+    Furnitures ||--o{ Variations : possède
+
+    Furnitures {
+        UUID id
+        VARCHAR name
+        ENUM category
+        VARCHAR image_url
+        DECIMAL buying_price
+        DECIMAL selling_price
+    }
+
+    Variations {
+        UUID id
+        UUID furniture_id
+        VARCHAR variation_image_url
+        VARCHAR variation_name
+    }
+
+
