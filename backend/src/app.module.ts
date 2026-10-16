@@ -7,6 +7,7 @@ import { VillagerModule } from './villager/villager.module';
 import { SpeciesModule } from './species/species.module';
 import { PersonalityModule } from './personality/personality.module';
 import { InsectLocationModule } from './insect-location/insect-location.module';
+import { InsectModule } from './insect/insect.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { InsectLocationModule } from './insect-location/insect-location.module';
     SpeciesModule,
     PersonalityModule,
     InsectLocationModule,
+    InsectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
