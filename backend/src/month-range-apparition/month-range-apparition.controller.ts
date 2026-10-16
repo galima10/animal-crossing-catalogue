@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MonthRangeApparitionService } from './month-range-apparition.service';
-import { CreateMonthRangeApparitionDto } from './dto/create-month-range-apparition.dto';
-import { UpdateMonthRangeApparitionDto } from './dto/update-month-range-apparition.dto';
+import { CreateMonthRangeApparitionDto } from './create-month-range-apparition.dto';
 
 @Controller('month-range-apparitions')
 export class MonthRangeApparitionController {
@@ -20,11 +19,6 @@ export class MonthRangeApparitionController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.monthRangeApparitionService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMonthRangeApparitionDto: UpdateMonthRangeApparitionDto) {
-    return this.monthRangeApparitionService.update(id, updateMonthRangeApparitionDto);
   }
 
   @Delete(':id')

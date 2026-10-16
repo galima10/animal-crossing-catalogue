@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateVillagerDto } from './dto/create-villager.dto';
-import { UpdateVillagerDto } from './dto/update-villager.dto';
+import { CreateVillagerDto } from './create-villager.dto';
 
 @Injectable()
 export class VillagerService {
@@ -14,10 +13,6 @@ export class VillagerService {
 
   findOne(id: string) {
     return `This action returns a #${id} villager`;
-  }
-
-  update(id: string, updateVillagerDto: UpdateVillagerDto) {
-    return `This action updates a #${id} villager`;
   }
 
   remove(id: string) {

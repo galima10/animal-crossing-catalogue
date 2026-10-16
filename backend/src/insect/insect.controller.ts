@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { InsectService } from './insect.service';
-import { CreateInsectDto } from './dto/create-insect.dto';
-import { UpdateInsectDto } from './dto/update-insect.dto';
+import { CreateInsectDto } from './create-insect.dto';
 
 @Controller('insects')
 export class InsectController {
@@ -20,11 +19,6 @@ export class InsectController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.insectService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInsectDto: UpdateInsectDto) {
-    return this.insectService.update(id, updateInsectDto);
   }
 
   @Delete(':id')

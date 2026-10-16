@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { SpeciesService } from './species.service';
-import { CreateSpeciesDto } from './dto/create-species.dto';
-import { UpdateSpeciesDto } from './dto/update-species.dto';
+import { CreateSpeciesDto } from './create-species.dto';
 
 @Controller('species')
 export class SpeciesController {
@@ -20,11 +19,6 @@ export class SpeciesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.speciesService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpeciesDto: UpdateSpeciesDto) {
-    return this.speciesService.update(id, updateSpeciesDto);
   }
 
   @Delete(':id')

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateInsectLocationDto } from './dto/create-insect-location.dto';
-import { UpdateInsectLocationDto } from './dto/update-insect-location.dto';
+import { CreateInsectLocationDto } from './create-insect-location.dto';
 
 @Injectable()
 export class InsectLocationService {
@@ -14,10 +13,6 @@ export class InsectLocationService {
 
   findOne(id: string) {
     return `This action returns a #${id} insectLocation`;
-  }
-
-  update(id: string, updateInsectLocationDto: UpdateInsectLocationDto) {
-    return `This action updates a #${id} insectLocation`;
   }
 
   remove(id: string) {

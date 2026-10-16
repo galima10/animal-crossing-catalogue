@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateVariationDto } from './dto/create-variation.dto';
-import { UpdateVariationDto } from './dto/update-variation.dto';
+import { CreateVariationDto } from './create-variation.dto';
 
 @Injectable()
 export class VariationService {
@@ -14,10 +13,6 @@ export class VariationService {
 
   findOne(id: string) {
     return `This action returns a #${id} variation`;
-  }
-
-  update(id: string, updateVariationDto: UpdateVariationDto) {
-    return `This action updates a #${id} variation`;
   }
 
   remove(id: string) {

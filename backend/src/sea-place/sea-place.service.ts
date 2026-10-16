@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSeaPlaceDto } from './dto/create-sea-place.dto';
-import { UpdateSeaPlaceDto } from './dto/update-sea-place.dto';
+import { CreateSeaPlaceDto } from './create-sea-place.dto';
 
 @Injectable()
 export class SeaPlaceService {
@@ -14,10 +13,6 @@ export class SeaPlaceService {
 
   findOne(id: string) {
     return `This action returns a #${id} seaPlace`;
-  }
-
-  update(id: string, updateSeaPlaceDto: UpdateSeaPlaceDto) {
-    return `This action updates a #${id} seaPlace`;
   }
 
   remove(id: string) {

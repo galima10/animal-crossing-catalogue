@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { PersonalityService } from './personality.service';
-import { CreatePersonalityDto } from './dto/create-personality.dto';
-import { UpdatePersonalityDto } from './dto/update-personality.dto';
+import { CreatePersonalityDto } from './create-personality.dto';
 
 @Controller('personalities')
 export class PersonalityController {
@@ -20,11 +19,6 @@ export class PersonalityController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.personalityService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonalityDto: UpdatePersonalityDto) {
-    return this.personalityService.update(id, updatePersonalityDto);
   }
 
   @Delete(':id')

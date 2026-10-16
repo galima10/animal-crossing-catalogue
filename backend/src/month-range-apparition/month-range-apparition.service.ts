@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMonthRangeApparitionDto } from './dto/create-month-range-apparition.dto';
-import { UpdateMonthRangeApparitionDto } from './dto/update-month-range-apparition.dto';
+import { CreateMonthRangeApparitionDto } from './create-month-range-apparition.dto';
 
 @Injectable()
 export class MonthRangeApparitionService {
@@ -14,10 +13,6 @@ export class MonthRangeApparitionService {
 
   findOne(id: string) {
     return `This action returns a #${id} monthRangeApparition`;
-  }
-
-  update(id: string, updateMonthRangeApparitionDto: UpdateMonthRangeApparitionDto) {
-    return `This action updates a #${id} monthRangeApparition`;
   }
 
   remove(id: string) {

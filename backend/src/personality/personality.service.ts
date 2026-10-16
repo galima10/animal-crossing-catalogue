@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePersonalityDto } from './dto/create-personality.dto';
-import { UpdatePersonalityDto } from './dto/update-personality.dto';
+import { CreatePersonalityDto } from './create-personality.dto';
 
 @Injectable()
 export class PersonalityService {
@@ -14,10 +13,6 @@ export class PersonalityService {
 
   findOne(id: string) {
     return `This action returns a #${id} personality`;
-  }
-
-  update(id: string, updatePersonalityDto: UpdatePersonalityDto) {
-    return `This action updates a #${id} personality`;
   }
 
   remove(id: string) {

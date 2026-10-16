@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { SeaPlaceService } from './sea-place.service';
-import { CreateSeaPlaceDto } from './dto/create-sea-place.dto';
-import { UpdateSeaPlaceDto } from './dto/update-sea-place.dto';
+import { CreateSeaPlaceDto } from './create-sea-place.dto';
 
 @Controller('sea-places')
 export class SeaPlaceController {
@@ -20,11 +19,6 @@ export class SeaPlaceController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.seaPlaceService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSeaPlaceDto: UpdateSeaPlaceDto) {
-    return this.seaPlaceService.update(id, updateSeaPlaceDto);
   }
 
   @Delete(':id')

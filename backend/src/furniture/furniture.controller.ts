@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { FurnitureService } from './furniture.service';
-import { CreateFurnitureDto } from './dto/create-furniture.dto';
-import { UpdateFurnitureDto } from './dto/update-furniture.dto';
+import { CreateFurnitureDto } from './create-furniture.dto';
 
 @Controller('furnitures')
 export class FurnitureController {
@@ -20,11 +19,6 @@ export class FurnitureController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.furnitureService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFurnitureDto: UpdateFurnitureDto) {
-    return this.furnitureService.update(id, updateFurnitureDto);
   }
 
   @Delete(':id')

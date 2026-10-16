@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFurnitureDto } from './dto/create-furniture.dto';
-import { UpdateFurnitureDto } from './dto/update-furniture.dto';
+import { CreateFurnitureDto } from './create-furniture.dto';
 
 @Injectable()
 export class FurnitureService {
@@ -14,10 +13,6 @@ export class FurnitureService {
 
   findOne(id: string) {
     return `This action returns a #${id} furniture`;
-  }
-
-  update(id: string, updateFurnitureDto: UpdateFurnitureDto) {
-    return `This action updates a #${id} furniture`;
   }
 
   remove(id: string) {
