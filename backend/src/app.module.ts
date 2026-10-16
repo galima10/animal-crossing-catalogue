@@ -11,6 +11,7 @@ import { InsectModule } from './insect/insect.module';
 import { SeaPlaceModule } from './sea-place/sea-place.module';
 import { FishModule } from './fish/fish.module';
 import { SeaCreatureModule } from './sea-creature/sea-creature.module';
+import { MonthRangeApparitionModule } from './month-range-apparition/month-range-apparition.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SeaCreatureModule } from './sea-creature/sea-creature.module';
     SeaPlaceModule,
     FishModule,
     SeaCreatureModule,
+    MonthRangeApparitionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
