@@ -8,7 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
   imports: [
     PrismaModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env.local'],
+      envFilePath: ['.env'],
     }),
   ],
   controllers: [AppController],
