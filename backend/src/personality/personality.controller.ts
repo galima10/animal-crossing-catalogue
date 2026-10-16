@@ -19,16 +19,16 @@ export class PersonalityController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.personalityService.findOne(+id);
+    return this.personalityService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePersonalityDto: UpdatePersonalityDto) {
-    return this.personalityService.update(+id, updatePersonalityDto);
+    return this.personalityService.update(id, updatePersonalityDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.personalityService.remove(+id);
+    return this.personalityService.remove(id);
   }
 }

@@ -19,16 +19,16 @@ export class FurnitureController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.furnitureService.findOne(+id);
+    return this.furnitureService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFurnitureDto: UpdateFurnitureDto) {
-    return this.furnitureService.update(+id, updateFurnitureDto);
+    return this.furnitureService.update(id, updateFurnitureDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.furnitureService.remove(+id);
+    return this.furnitureService.remove(id);
   }
 }

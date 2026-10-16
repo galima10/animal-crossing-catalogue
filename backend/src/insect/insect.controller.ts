@@ -19,16 +19,16 @@ export class InsectController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.insectService.findOne(+id);
+    return this.insectService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateInsectDto: UpdateInsectDto) {
-    return this.insectService.update(+id, updateInsectDto);
+    return this.insectService.update(id, updateInsectDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.insectService.remove(+id);
+    return this.insectService.remove(id);
   }
 }

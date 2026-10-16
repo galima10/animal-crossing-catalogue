@@ -12,15 +12,15 @@ export class FurnitureService {
     return `This action returns all furniture`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} furniture`;
   }
 
-  update(id: number, updateFurnitureDto: UpdateFurnitureDto) {
+  update(id: string, updateFurnitureDto: UpdateFurnitureDto) {
     return `This action updates a #${id} furniture`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} furniture`;
   }
 }

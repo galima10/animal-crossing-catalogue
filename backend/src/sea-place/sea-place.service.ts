@@ -12,15 +12,15 @@ export class SeaPlaceService {
     return `This action returns all seaPlace`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} seaPlace`;
   }
 
-  update(id: number, updateSeaPlaceDto: UpdateSeaPlaceDto) {
+  update(id: string, updateSeaPlaceDto: UpdateSeaPlaceDto) {
     return `This action updates a #${id} seaPlace`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} seaPlace`;
   }
 }

@@ -12,15 +12,15 @@ export class VillagerService {
     return `This action returns all villager`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} villager`;
   }
 
-  update(id: number, updateVillagerDto: UpdateVillagerDto) {
+  update(id: string, updateVillagerDto: UpdateVillagerDto) {
     return `This action updates a #${id} villager`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} villager`;
   }
 }

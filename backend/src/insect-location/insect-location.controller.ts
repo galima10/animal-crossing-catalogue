@@ -19,16 +19,16 @@ export class InsectLocationController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.insectLocationService.findOne(+id);
+    return this.insectLocationService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateInsectLocationDto: UpdateInsectLocationDto) {
-    return this.insectLocationService.update(+id, updateInsectLocationDto);
+    return this.insectLocationService.update(id, updateInsectLocationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.insectLocationService.remove(+id);
+    return this.insectLocationService.remove(id);
   }
 }

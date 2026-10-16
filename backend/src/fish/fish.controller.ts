@@ -19,16 +19,16 @@ export class FishController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.fishService.findOne(+id);
+    return this.fishService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFishDto: UpdateFishDto) {
-    return this.fishService.update(+id, updateFishDto);
+    return this.fishService.update(id, updateFishDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.fishService.remove(+id);
+    return this.fishService.remove(id);
   }
 }

@@ -12,15 +12,15 @@ export class MonthRangeApparitionService {
     return `This action returns all monthRangeApparition`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} monthRangeApparition`;
   }
 
-  update(id: number, updateMonthRangeApparitionDto: UpdateMonthRangeApparitionDto) {
+  update(id: string, updateMonthRangeApparitionDto: UpdateMonthRangeApparitionDto) {
     return `This action updates a #${id} monthRangeApparition`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} monthRangeApparition`;
   }
 }

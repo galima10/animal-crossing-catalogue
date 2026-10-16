@@ -12,15 +12,15 @@ export class InsectLocationService {
     return `This action returns all insectLocation`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} insectLocation`;
   }
 
-  update(id: number, updateInsectLocationDto: UpdateInsectLocationDto) {
+  update(id: string, updateInsectLocationDto: UpdateInsectLocationDto) {
     return `This action updates a #${id} insectLocation`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} insectLocation`;
   }
 }

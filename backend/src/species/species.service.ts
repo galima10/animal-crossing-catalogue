@@ -12,15 +12,15 @@ export class SpeciesService {
     return `This action returns all species`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} species`;
   }
 
-  update(id: number, updateSpeciesDto: UpdateSpeciesDto) {
+  update(id: string, updateSpeciesDto: UpdateSpeciesDto) {
     return `This action updates a #${id} species`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} species`;
   }
 }

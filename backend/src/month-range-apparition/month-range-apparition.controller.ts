@@ -19,16 +19,16 @@ export class MonthRangeApparitionController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.monthRangeApparitionService.findOne(+id);
+    return this.monthRangeApparitionService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMonthRangeApparitionDto: UpdateMonthRangeApparitionDto) {
-    return this.monthRangeApparitionService.update(+id, updateMonthRangeApparitionDto);
+    return this.monthRangeApparitionService.update(id, updateMonthRangeApparitionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.monthRangeApparitionService.remove(+id);
+    return this.monthRangeApparitionService.remove(id);
   }
 }

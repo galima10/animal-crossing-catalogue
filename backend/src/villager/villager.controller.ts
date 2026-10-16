@@ -19,16 +19,16 @@ export class VillagerController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.villagerService.findOne(+id);
+    return this.villagerService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVillagerDto: UpdateVillagerDto) {
-    return this.villagerService.update(+id, updateVillagerDto);
+    return this.villagerService.update(id, updateVillagerDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.villagerService.remove(+id);
+    return this.villagerService.remove(id);
   }
 }

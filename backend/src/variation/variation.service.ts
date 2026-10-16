@@ -12,15 +12,15 @@ export class VariationService {
     return `This action returns all variation`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} variation`;
   }
 
-  update(id: number, updateVariationDto: UpdateVariationDto) {
+  update(id: string, updateVariationDto: UpdateVariationDto) {
     return `This action updates a #${id} variation`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} variation`;
   }
 }

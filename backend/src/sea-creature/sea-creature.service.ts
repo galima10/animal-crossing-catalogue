@@ -12,15 +12,15 @@ export class SeaCreatureService {
     return `This action returns all seaCreature`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} seaCreature`;
   }
 
-  update(id: number, updateSeaCreatureDto: UpdateSeaCreatureDto) {
+  update(id: string, updateSeaCreatureDto: UpdateSeaCreatureDto) {
     return `This action updates a #${id} seaCreature`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} seaCreature`;
   }
 }

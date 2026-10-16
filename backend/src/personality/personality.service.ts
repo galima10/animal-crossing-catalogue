@@ -12,15 +12,15 @@ export class PersonalityService {
     return `This action returns all personality`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} personality`;
   }
 
-  update(id: number, updatePersonalityDto: UpdatePersonalityDto) {
+  update(id: string, updatePersonalityDto: UpdatePersonalityDto) {
     return `This action updates a #${id} personality`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} personality`;
   }
 }

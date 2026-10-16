@@ -19,16 +19,16 @@ export class SeaPlaceController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.seaPlaceService.findOne(+id);
+    return this.seaPlaceService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSeaPlaceDto: UpdateSeaPlaceDto) {
-    return this.seaPlaceService.update(+id, updateSeaPlaceDto);
+    return this.seaPlaceService.update(id, updateSeaPlaceDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.seaPlaceService.remove(+id);
+    return this.seaPlaceService.remove(id);
   }
 }
