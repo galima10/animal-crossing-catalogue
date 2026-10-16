@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { VillagerModule } from './villager/villager.module';
 import { SpeciesModule } from './species/species.module';
+import { PersonalityModule } from './personality/personality.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SpeciesModule } from './species/species.module';
     }),
     VillagerModule,
     SpeciesModule,
+    PersonalityModule,
   ],
   controllers: [AppController],
   providers: [AppService],
