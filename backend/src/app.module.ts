@@ -12,6 +12,7 @@ import { SeaPlaceModule } from './sea-place/sea-place.module';
 import { FishModule } from './fish/fish.module';
 import { SeaCreatureModule } from './sea-creature/sea-creature.module';
 import { MonthRangeApparitionModule } from './month-range-apparition/month-range-apparition.module';
+import { FurnitureModule } from './furniture/furniture.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MonthRangeApparitionModule } from './month-range-apparition/month-range
     FishModule,
     SeaCreatureModule,
     MonthRangeApparitionModule,
+    FurnitureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
