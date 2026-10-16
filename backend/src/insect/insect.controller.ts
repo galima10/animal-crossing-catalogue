@@ -3,7 +3,7 @@ import { InsectService } from './insect.service';
 import { CreateInsectDto } from './dto/create-insect.dto';
 import { UpdateInsectDto } from './dto/update-insect.dto';
 
-@Controller('insect')
+@Controller('insects')
 export class InsectController {
   constructor(private readonly insectService: InsectService) {}
 

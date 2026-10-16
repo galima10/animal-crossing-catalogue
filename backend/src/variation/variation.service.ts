@@ -3,13 +3,13 @@ import { CreateVariationDto } from './dto/create-variation.dto';
 import { UpdateVariationDto } from './dto/update-variation.dto';
 
 @Injectable()
-export class VariationsService {
+export class VariationService {
   create(createVariationDto: CreateVariationDto) {
     return 'This action adds a new variation';
   }
 
   findAll() {
-    return `This action returns all variations`;
+    return `This action returns all variation`;
   }
 
   findOne(id: number) {

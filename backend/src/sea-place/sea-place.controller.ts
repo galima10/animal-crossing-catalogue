@@ -3,7 +3,7 @@ import { SeaPlaceService } from './sea-place.service';
 import { CreateSeaPlaceDto } from './dto/create-sea-place.dto';
 import { UpdateSeaPlaceDto } from './dto/update-sea-place.dto';
 
-@Controller('sea-place')
+@Controller('sea-places')
 export class SeaPlaceController {
   constructor(private readonly seaPlaceService: SeaPlaceService) {}
 

@@ -3,7 +3,7 @@ import { MonthRangeApparitionService } from './month-range-apparition.service';
 import { CreateMonthRangeApparitionDto } from './dto/create-month-range-apparition.dto';
 import { UpdateMonthRangeApparitionDto } from './dto/update-month-range-apparition.dto';
 
-@Controller('month-range-apparition')
+@Controller('month-range-apparitions')
 export class MonthRangeApparitionController {
   constructor(private readonly monthRangeApparitionService: MonthRangeApparitionService) {}
 

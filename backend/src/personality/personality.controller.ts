@@ -3,7 +3,7 @@ import { PersonalityService } from './personality.service';
 import { CreatePersonalityDto } from './dto/create-personality.dto';
 import { UpdatePersonalityDto } from './dto/update-personality.dto';
 
-@Controller('personality')
+@Controller('personalities')
 export class PersonalityController {
   constructor(private readonly personalityService: PersonalityService) {}
 

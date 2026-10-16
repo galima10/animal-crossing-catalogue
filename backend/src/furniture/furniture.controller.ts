@@ -3,7 +3,7 @@ import { FurnitureService } from './furniture.service';
 import { CreateFurnitureDto } from './dto/create-furniture.dto';
 import { UpdateFurnitureDto } from './dto/update-furniture.dto';
 
-@Controller('furniture')
+@Controller('furnitures')
 export class FurnitureController {
   constructor(private readonly furnitureService: FurnitureService) {}
 

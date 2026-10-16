@@ -13,7 +13,7 @@ import { FishModule } from './fish/fish.module';
 import { SeaCreatureModule } from './sea-creature/sea-creature.module';
 import { MonthRangeApparitionModule } from './month-range-apparition/month-range-apparition.module';
 import { FurnitureModule } from './furniture/furniture.module';
-import { VariationsModule } from './variations/variations.module';
+import { VariationModule } from './variation/variation.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { VariationsModule } from './variations/variations.module';
     SeaCreatureModule,
     MonthRangeApparitionModule,
     FurnitureModule,
-    VariationsModule,
+    VariationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,34 +1,34 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { VariationsService } from './variations.service';
+import { VariationService } from './variation.service';
 import { CreateVariationDto } from './dto/create-variation.dto';
 import { UpdateVariationDto } from './dto/update-variation.dto';
 
 @Controller('variations')
-export class VariationsController {
-  constructor(private readonly variationsService: VariationsService) {}
+export class VariationController {
+  constructor(private readonly variationService: VariationService) {}
 
   @Post()
   create(@Body() createVariationDto: CreateVariationDto) {
-    return this.variationsService.create(createVariationDto);
+    return this.variationService.create(createVariationDto);
   }
 
   @Get()
   findAll() {
-    return this.variationsService.findAll();
+    return this.variationService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.variationsService.findOne(+id);
+    return this.variationService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVariationDto: UpdateVariationDto) {
-    return this.variationsService.update(+id, updateVariationDto);
+    return this.variationService.update(+id, updateVariationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.variationsService.remove(+id);
+    return this.variationService.remove(+id);
   }
 }

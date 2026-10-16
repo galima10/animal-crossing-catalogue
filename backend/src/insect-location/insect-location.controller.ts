@@ -3,7 +3,7 @@ import { InsectLocationService } from './insect-location.service';
 import { CreateInsectLocationDto } from './dto/create-insect-location.dto';
 import { UpdateInsectLocationDto } from './dto/update-insect-location.dto';
 
-@Controller('insect-location')
+@Controller('insect-locations')
 export class InsectLocationController {
   constructor(private readonly insectLocationService: InsectLocationService) {}
 

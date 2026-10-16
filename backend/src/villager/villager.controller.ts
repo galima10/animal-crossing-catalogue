@@ -3,7 +3,7 @@ import { VillagerService } from './villager.service';
 import { CreateVillagerDto } from './dto/create-villager.dto';
 import { UpdateVillagerDto } from './dto/update-villager.dto';
 
-@Controller('villager')
+@Controller('villagers')
 export class VillagerController {
   constructor(private readonly villagerService: VillagerService) {}
 

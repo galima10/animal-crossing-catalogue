@@ -3,7 +3,7 @@ import { FishService } from './fish.service';
 import { CreateFishDto } from './dto/create-fish.dto';
 import { UpdateFishDto } from './dto/update-fish.dto';
 
-@Controller('fish')
+@Controller('fishs')
 export class FishController {
   constructor(private readonly fishService: FishService) {}
 
