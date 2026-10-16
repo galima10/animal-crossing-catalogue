@@ -10,6 +10,7 @@ import { InsectLocationModule } from './insect-location/insect-location.module';
 import { InsectModule } from './insect/insect.module';
 import { SeaPlaceModule } from './sea-place/sea-place.module';
 import { FishModule } from './fish/fish.module';
+import { SeaCreatureModule } from './sea-creature/sea-creature.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FishModule } from './fish/fish.module';
     InsectModule,
     SeaPlaceModule,
     FishModule,
+    SeaCreatureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
