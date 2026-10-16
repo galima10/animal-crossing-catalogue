@@ -9,6 +9,7 @@ import { PersonalityModule } from './personality/personality.module';
 import { InsectLocationModule } from './insect-location/insect-location.module';
 import { InsectModule } from './insect/insect.module';
 import { SeaPlaceModule } from './sea-place/sea-place.module';
+import { FishModule } from './fish/fish.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { SeaPlaceModule } from './sea-place/sea-place.module';
     InsectLocationModule,
     InsectModule,
     SeaPlaceModule,
+    FishModule,
   ],
   controllers: [AppController],
   providers: [AppService],
