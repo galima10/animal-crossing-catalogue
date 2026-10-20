@@ -39,9 +39,15 @@ enum Hemisphere {
 }
 
 enum Category {
-  INTERIOR_STRUCTURE
+  HOUSEWARE
+  MISCELLANEOUS
   CEILING_DECOR
   WALL_MOUNTED
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
 
 // Villageois
@@ -69,6 +75,7 @@ model Villager {
   name     String   @unique
   imageUrl String   @map("image_url")
   birthday DateTime
+  gender   Gender
 
   speciesId String  @map("species_id")
   species   Species @relation(fields: [speciesId], references: [id])
