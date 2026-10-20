@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { FishService } from './fish.service';
-import { CreateFishDto } from './create-fish.dto';
+import { CreateFishDto } from './fish.dto';
 
 @Controller('fishs')
 export class FishController {
@@ -19,10 +19,5 @@ export class FishController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.fishService.findOne(id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.fishService.remove(id);
   }
 }
