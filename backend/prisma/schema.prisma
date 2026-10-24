@@ -16,6 +16,7 @@ datasource db {
 enum Weather {
   ANY_EXCEPT_RAIN
   ANY_WEATHER
+  RAIN_ONLY
 }
 
 enum Month {
