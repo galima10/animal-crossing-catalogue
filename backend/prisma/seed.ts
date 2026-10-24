@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { parse } from 'csv-parse/sync';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { Gender } from '@prisma/client';
+import { Gender, Weather } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -43,7 +43,12 @@ interface MonthRangesCsv {
   'SH Dec': string;
 }
 
-interface InsectFishCsv extends SeaCreatureCsv {
+interface InsectCsv extends FishCsv {
+  'Where/How': string;
+  Weather: string;
+}
+
+interface FishCsv extends SeaCreatureCsv {
   'Where/How': string;
 }
 
@@ -67,14 +72,8 @@ const filesPath = {
     process.cwd(),
     'public/data/villagers_filtered_data.csv',
   ),
-  insects: path.resolve(
-    process.cwd(),
-    'public/data/insects_filtered_data.csv',
-  ),
-  fish: path.resolve(
-    process.cwd(),
-    'public/data/fish_filtered_data.csv',
-  ),
+  insects: path.resolve(process.cwd(), 'public/data/insects_filtered_data.csv'),
+  fish: path.resolve(process.cwd(), 'public/data/fish_filtered_data.csv'),
   housewares: path.resolve(
     process.cwd(),
     'public/data/housewares_filtered_data.csv',
@@ -93,20 +92,20 @@ const filesPath = {
   ),
 };
 
-async function main() {
-  //   Entity Villager (with Species and Personalities) --------------------
+async function parseCsv(file: string) {
+  const content = await readFile(file, 'utf-8');
 
-  //   Read the CSV
-  const content = await readFile(filesPath.villagers, 'utf-8');
-
-  const villagers = parse(content, {
+  return parse(content, {
     columns: true,
     skip_empty_lines: true,
     bom: true,
     trim: true,
-  }) as VillagerCsv[];
+  });
+}
 
-  //   Extract Species and Personalities (removing duplication entries)
+async function insertVillagers() {
+  const villagers = (await parseCsv(filesPath.villagers)) as VillagerCsv[];
+
   const speciesNames = [
     ...new Set(
       villagers.map((villager) => villager.Species.trim()).filter(Boolean),
@@ -118,7 +117,6 @@ async function main() {
     ),
   ];
 
-  //   Insert species and personalities
   await prisma.species.createMany({
     data: speciesNames.map((name) => ({ name })),
     skipDuplicates: true,
@@ -129,17 +127,14 @@ async function main() {
     skipDuplicates: true,
   });
 
-  //   Get species and personalities with UUIDs
   const species = await prisma.species.findMany();
   const personalities = await prisma.personality.findMany();
 
   const speciesMap = new Map(species.map((item) => [item.name, item.id]));
-
   const personalityMap = new Map(
     personalities.map((item) => [item.name, item.id]),
   );
 
-  //   Insert villagers with species and personalities ids
   for (const villager of villagers) {
     const speciesId = speciesMap.get(villager.Species.trim());
     const personnalityId = personalityMap.get(villager.Personality.trim());
@@ -183,6 +178,72 @@ async function main() {
       `${personalityNames.length} personnalités détectées, ` +
       `${villagers.length} villageois traités.`,
   );
+}
+
+async function insertInsects() {
+  const insects = (await parseCsv(filesPath.insects)) as InsectCsv[];
+
+  const insectLocationNames = [
+    ...new Set(
+      insects.map((insect) => insect['Where/How'].trim()).filter(Boolean),
+    ),
+  ];
+
+  await prisma.insectLocation.createMany({
+    data: insectLocationNames.map((name) => ({ name })),
+    skipDuplicates: true,
+  });
+
+  const insectLocations = await prisma.insectLocation.findMany();
+
+  const insectLocationsMap = new Map(
+    insectLocations.map((item) => [item.name, item.id]),
+  );
+
+  for (const insect of insects) {
+    const insectLocationId = insectLocationsMap.get(insect['Where/How'].trim());
+
+    if (!insectLocationId) {
+      throw new Error(
+        `Localisation de l'insecte introuvable pour ${insect.Name}`,
+      );
+    }
+
+    const weatherValue = insect.Weather.trim().toUpperCase().replaceAll(" ", "_");
+
+    if (weatherValue !== 'ANY_EXCEPT_RAIN' && weatherValue !== 'ANY_WEATHER' && weatherValue !== 'RAIN_ONLY') {
+      throw new Error(`Météo invalide pour ${insect.Name} : ${insect.Weather, weatherValue}`);
+    }
+
+    await prisma.insect.upsert({
+      where: { name: insect.Name.trim() },
+      update: {
+        imageUrl: insect.Image.trim(),
+        sellingPrice: Number(insect.Sell),
+        monthlyAvalaibility: Number(insect['Total Catches to Unlock']),
+        weather: weatherValue as Weather,
+        insectLocationId,
+      },
+      create: {
+        name: insect.Name.trim(),
+        imageUrl: insect.Image.trim(),
+        sellingPrice: Number(insect.Sell),
+        monthlyAvalaibility: Number(insect['Total Catches to Unlock']),
+        weather: weatherValue as Weather,
+        insectLocationId,
+      },
+    });
+  }
+
+  console.log(
+    `${insectLocationNames.length} localisations d'insectes détectées, ` +
+      `${insects.length} insectes traités.`,
+  );
+}
+
+async function main() {
+  await insertVillagers();
+  await insertInsects();
 }
 
 main()
