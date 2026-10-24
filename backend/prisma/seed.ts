@@ -74,6 +74,10 @@ const filesPath = {
   ),
   insects: path.resolve(process.cwd(), 'public/data/insects_filtered_data.csv'),
   fish: path.resolve(process.cwd(), 'public/data/fish_filtered_data.csv'),
+  seaCreatures: path.resolve(
+    process.cwd(),
+    'public/data/sea_creatures_filtered_data.csv',
+  ),
   housewares: path.resolve(
     process.cwd(),
     'public/data/housewares_filtered_data.csv',
@@ -209,10 +213,18 @@ async function insertInsects() {
       );
     }
 
-    const weatherValue = insect.Weather.trim().toUpperCase().replaceAll(" ", "_");
+    const weatherValue = insect.Weather.trim()
+      .toUpperCase()
+      .replaceAll(' ', '_');
 
-    if (weatherValue !== 'ANY_EXCEPT_RAIN' && weatherValue !== 'ANY_WEATHER' && weatherValue !== 'RAIN_ONLY') {
-      throw new Error(`Météo invalide pour ${insect.Name} : ${insect.Weather, weatherValue}`);
+    if (
+      weatherValue !== 'ANY_EXCEPT_RAIN' &&
+      weatherValue !== 'ANY_WEATHER' &&
+      weatherValue !== 'RAIN_ONLY'
+    ) {
+      throw new Error(
+        `Météo invalide pour ${insect.Name} : ${(insect.Weather, weatherValue)}`,
+      );
     }
 
     await prisma.insect.upsert({
@@ -241,9 +253,81 @@ async function insertInsects() {
   );
 }
 
+async function insertFishs() {
+  const fishs = (await parseCsv(filesPath.fish)) as InsectCsv[];
+
+  const seaPlacesNames = [
+    ...new Set(fishs.map((fish) => fish['Where/How'].trim()).filter(Boolean)),
+  ];
+
+  await prisma.seaPlace.createMany({
+    data: seaPlacesNames.map((name) => ({ name })),
+    skipDuplicates: true,
+  });
+
+  const seaPlaces = await prisma.seaPlace.findMany();
+
+  const seaPlacesMap = new Map(seaPlaces.map((item) => [item.name, item.id]));
+
+  for (const fish of fishs) {
+    const seaPlaceId = seaPlacesMap.get(fish['Where/How'].trim());
+
+    if (!seaPlaceId) {
+      throw new Error(`Localisation du poisson introuvable pour ${fish.Name}`);
+    }
+
+    await prisma.fish.upsert({
+      where: { name: fish.Name.trim() },
+      update: {
+        imageUrl: fish.Image.trim(),
+        sellingPrice: Number(fish.Sell),
+        monthlyAvalaibility: Number(fish['Total Catches to Unlock']),
+        seaPlaceId,
+      },
+      create: {
+        name: fish.Name.trim(),
+        imageUrl: fish.Image.trim(),
+        sellingPrice: Number(fish.Sell),
+        monthlyAvalaibility: Number(fish['Total Catches to Unlock']),
+        seaPlaceId,
+      },
+    });
+  }
+
+  console.log(
+    `${seaPlaces.length} localisations d'insectes détectées, ` +
+      `${fishs.length} insectes traités.`,
+  );
+}
+
+async function insertSeaCreatures() {
+  const seaCreatures = (await parseCsv(filesPath.seaCreatures)) as InsectCsv[];
+
+  for (const seaCreature of seaCreatures) {
+    await prisma.seaCreature.upsert({
+      where: { name: seaCreature.Name.trim() },
+      update: {
+        imageUrl: seaCreature.Image.trim(),
+        sellingPrice: Number(seaCreature.Sell),
+        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
+      },
+      create: {
+        name: seaCreature.Name.trim(),
+        imageUrl: seaCreature.Image.trim(),
+        sellingPrice: Number(seaCreature.Sell),
+        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
+      },
+    });
+  }
+
+  console.log(`${seaCreatures.length} créatures marines et crustacés traités.`);
+}
+
 async function main() {
   await insertVillagers();
   await insertInsects();
+  await insertFishs();
+  await insertSeaCreatures();
 }
 
 main()
