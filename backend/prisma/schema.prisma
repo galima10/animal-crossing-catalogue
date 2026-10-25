@@ -159,8 +159,8 @@ model SeaCreature {
 model MonthRangeApparition {
   id         String     @id @default(uuid())
   month      Month
-  startHour  DateTime   @map("start_hour")
-  endHour    DateTime   @map("end_hour")
+  startHour  DateTime?   @map("start_hour")
+  endHour    DateTime?   @map("end_hour")
   hemisphere Hemisphere
 
   insectId String? @map("insect_id")
