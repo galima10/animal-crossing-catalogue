@@ -196,12 +196,13 @@ model Furniture {
 
 model Variation {
   id                String @id @default(uuid())
-  variationName     String @unique @map("variation_name")
+  variationName     String @map("variation_name")
   variationImageUrl String @map("variation_image_url")
 
   furnitureId String    @map("furniture_id")
   furniture   Furniture @relation(fields: [furnitureId], references: [id])
 
+  @@unique([furnitureId, variationName])
   @@index([variationName])
   @@map("variations")
 }
