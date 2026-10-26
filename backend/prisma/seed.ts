@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { parse } from 'csv-parse/sync';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { Gender, Weather } from '@prisma/client';
+import { Gender, Weather, Month, Hemisphere } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -67,6 +67,21 @@ interface FurnitureCsv {
   Sell: string;
 }
 
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
 const filesPath = {
   villagers: path.resolve(
     process.cwd(),
@@ -105,6 +120,122 @@ async function parseCsv(file: string) {
     bom: true,
     trim: true,
   });
+}
+
+interface MonthAvalaibility {
+  key: string;
+  value: string;
+}
+
+function getMonthAvalaibilities(record: any): MonthAvalaibility[] {
+  return [
+    ...months.map((month) => ({
+      key: `NH ${month}`,
+      value: record[`NH ${month}`],
+    })),
+    ...months.map((month) => ({
+      key: `SH ${month}`,
+      value: record[`SH ${month}`],
+    })),
+  ];
+}
+
+function parseAvalaibility(avalaibility: MonthAvalaibility) {
+  const value = avalaibility.value;
+  const month = avalaibility.key.split(' ')[1];
+  const hemisphere =
+    avalaibility.key.split(' ')[0] === 'NH' ? 'NORTH' : 'SOUTH';
+  let isAllDay: boolean = false;
+  if (value === 'All day') isAllDay = true;
+
+  const normalizedValue = value.replace(/\u00A0/g, ' ').trim();
+
+  const ranges =
+    normalizedValue.match(
+      /\d{1,2}\s*(?:AM|PM)\s*[-–—]\s*\d{1,2}\s*(?:AM|PM)/gi,
+    ) ?? [];
+
+  const parsedRanges: { startHour: string; endHour: string }[] = ranges.map(
+    (range: string) => {
+      const [startHour, endHour] = range.split(/\s*[-–—]\s*/);
+
+      return { startHour, endHour };
+    },
+  );
+
+  if (value !== 'NA' && value !== 'All day' && ranges.length === 0) {
+    throw new Error(`Format d'horaire non reconnu : ${value}`);
+  }
+
+  return {
+    month,
+    hemisphere,
+    ranges: parsedRanges,
+    isAllDay,
+  };
+}
+
+interface MonthRangeApparitionData {
+  month: Month;
+  startHour: string | null;
+  endHour: string | null;
+  isAllDay: boolean;
+  hemisphere: Hemisphere;
+  insectId?: string;
+  fishId?: string;
+  seaCreatureId?: string;
+}
+
+async function insertMonthRangeApparitions(
+  availabilities: MonthAvalaibility[],
+  id: string,
+  type: 'insect' | 'fish' | 'seaCreature',
+) {
+  const relation =
+    type === 'insect'
+      ? { insectId: id }
+      : type === 'fish'
+        ? { fishId: id }
+        : { seaCreatureId: id };
+
+  await prisma.monthRangeApparition.deleteMany({
+    where: {
+      ...relation,
+    },
+  });
+
+  for (const avalaibility of availabilities) {
+    const { month, hemisphere, ranges, isAllDay } =
+      parseAvalaibility(avalaibility);
+
+    let data: MonthRangeApparitionData = {
+      month: month.toUpperCase() as Month,
+      startHour: null,
+      endHour: null,
+      isAllDay,
+      hemisphere: hemisphere as Hemisphere,
+      ...relation,
+    };
+
+    if (ranges.length === 1) {
+      data = {
+        ...data,
+        startHour: ranges[0].startHour,
+        endHour: ranges[0].endHour,
+      };
+      await prisma.monthRangeApparition.create({ data });
+    } else {
+      for (const range of ranges) {
+        data = {
+          ...data,
+          startHour: range.startHour,
+          endHour: range.endHour,
+        };
+        await prisma.monthRangeApparition.create({ data });
+      }
+    }
+    await prisma.monthRangeApparition.create({ data });
+  }
 }
 
 async function insertVillagers() {
@@ -245,6 +376,18 @@ async function insertInsects() {
         insectLocationId,
       },
     });
+
+    const { id: insectId } = await prisma.insect.findFirstOrThrow({
+      where: {
+        name: insect.Name,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const availabilities = getMonthAvalaibilities(insect);
+    await insertMonthRangeApparitions(availabilities, insectId, 'insect');
   }
 
   console.log(
@@ -292,6 +435,18 @@ async function insertFishs() {
         seaPlaceId,
       },
     });
+
+    const { id: fishId } = await prisma.fish.findFirstOrThrow({
+      where: {
+        name: fish.Name,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const availabilities = getMonthAvalaibilities(fish);
+    await insertMonthRangeApparitions(availabilities, fishId, 'fish');
   }
 
   console.log(
@@ -318,6 +473,19 @@ async function insertSeaCreatures() {
         monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
       },
     });
+
+    const { id: seaCreatureId } = await prisma.seaCreature.findFirstOrThrow({
+      where: {
+        name: seaCreature.Name,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const availabilities = getMonthAvalaibilities(seaCreature);
+
+    await insertMonthRangeApparitions(availabilities, seaCreatureId, 'seaCreature');
   }
 
   console.log(`${seaCreatures.length} créatures marines et crustacés traités.`);
