@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { parse } from 'csv-parse/sync';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { Gender, Weather, Month, Hemisphere } from '@prisma/client';
+import { Gender, Weather, Month, Hemisphere, Category } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -455,6 +455,30 @@ async function insertFishs() {
   );
 }
 
+function getUniqueVariationsFurniture(rows: FurnitureCsv[]): {
+  uniqueFurnitures: FurnitureCsv[];
+  furnitureVariations: FurnitureCsv[];
+} {
+  const seen = new Set<string>();
+
+  const uniqueFurnitures: FurnitureCsv[] = [];
+  const furnitureVariations: FurnitureCsv[] = [];
+
+  for (const row of rows) {
+    if (seen.has(row.Name)) {
+      furnitureVariations.push(row);
+    } else {
+      seen.add(row.Name);
+      uniqueFurnitures.push(row);
+    }
+  }
+
+  return {
+    uniqueFurnitures,
+    furnitureVariations,
+  };
+}
+
 async function insertSeaCreatures() {
   const seaCreatures = (await parseCsv(filesPath.seaCreatures)) as InsectCsv[];
 
@@ -485,10 +509,111 @@ async function insertSeaCreatures() {
 
     const availabilities = getMonthAvalaibilities(seaCreature);
 
-    await insertMonthRangeApparitions(availabilities, seaCreatureId, 'seaCreature');
+    await insertMonthRangeApparitions(
+      availabilities,
+      seaCreatureId,
+      'seaCreature',
+    );
   }
 
   console.log(`${seaCreatures.length} créatures marines et crustacés traités.`);
+}
+
+async function insertVariations(furnitureVariations: FurnitureCsv[]) {
+  const furnitures = await prisma.furniture.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
+  const furnitureIdByName = new Map(
+    furnitures.map((furniture) => [furniture.name, furniture.id]),
+  );
+
+  for (const furniture of furnitureVariations) {
+    const furnitureId = furnitureIdByName.get(furniture.Name.trim());
+
+    if (!furnitureId) {
+      throw new Error(`Meuble introuvable : ${furniture.Name}`);
+    }
+
+    const variationName = furniture.Variation.trim();
+
+    await prisma.variation.upsert({
+      where: {
+        furnitureId_variationName: {
+          furnitureId,
+          variationName,
+        },
+      },
+      update: {
+        variationImageUrl: furniture.Image.trim(),
+      },
+      create: {
+        furnitureId,
+        variationName,
+        variationImageUrl: furniture.Image.trim(),
+      },
+    });
+  }
+}
+
+async function insertFurnitures(uniqueFurnitures: FurnitureCsv[], category: Category) {
+  for (const furniture of uniqueFurnitures) {
+    await prisma.furniture.upsert({
+      where: { name: furniture.Name.trim() },
+      update: {
+        category: category,
+        imageUrl: furniture.Image.trim(),
+        buyingPrice: Number(furniture.Buy),
+        sellingPrice: Number(furniture.Sell),
+      },
+      create: {
+        name: furniture.Name.trim(),
+        category: category,
+        imageUrl: furniture.Image.trim(),
+        buyingPrice: Number(furniture.Buy),
+        sellingPrice: Number(furniture.Sell),
+      },
+    });
+  }
+}
+
+async function insertHousewares() {
+  const housewares = (await parseCsv(filesPath.housewares)) as FurnitureCsv[];
+  const { uniqueFurnitures, furnitureVariations } =
+    getUniqueVariationsFurniture(housewares);
+  await insertFurnitures(uniqueFurnitures, 'HOUSEWARE');
+  await insertVariations(furnitureVariations);
+  console.log(`${uniqueFurnitures.length + furnitureVariations.length} articles ménagés traités.`);
+}
+
+async function insertMiscellaneous() {
+  const miscellaneous = (await parseCsv(filesPath.miscellaneous)) as FurnitureCsv[];
+  const { uniqueFurnitures, furnitureVariations } =
+    getUniqueVariationsFurniture(miscellaneous);
+  await insertFurnitures(uniqueFurnitures, 'MISCELLANEOUS');
+  await insertVariations(furnitureVariations);
+  console.log(`${uniqueFurnitures.length + furnitureVariations.length} meubles divers traités.`);
+}
+
+async function insertCeilingDecor() {
+  const ceilingDecor = (await parseCsv(filesPath.ceilingDecor)) as FurnitureCsv[];
+  const { uniqueFurnitures, furnitureVariations } =
+    getUniqueVariationsFurniture(ceilingDecor);
+  await insertFurnitures(uniqueFurnitures, 'CEILING_DECOR');
+  await insertVariations(furnitureVariations);
+  console.log(`${uniqueFurnitures.length + furnitureVariations.length} décorations de plafond traités.`);
+}
+
+async function insertWallMounted() {
+  const wallMounted = (await parseCsv(filesPath.wallMounted)) as FurnitureCsv[];
+  const { uniqueFurnitures, furnitureVariations } =
+    getUniqueVariationsFurniture(wallMounted);
+  await insertFurnitures(uniqueFurnitures, 'WALL_MOUNTED');
+  await insertVariations(furnitureVariations);
+  console.log(`${uniqueFurnitures.length + furnitureVariations.length} meubles fixés au mur traités.`);
 }
 
 async function main() {
@@ -496,6 +621,10 @@ async function main() {
   await insertInsects();
   await insertFishs();
   await insertSeaCreatures();
+  await insertHousewares();
+  await insertMiscellaneous();
+  await insertCeilingDecor();
+  await insertWallMounted();
 }
 
 main()
