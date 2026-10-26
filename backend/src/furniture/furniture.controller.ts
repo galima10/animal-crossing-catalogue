@@ -1,15 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { FurnitureService } from './furniture.service';
-import { CreateFurnitureDto } from './create-furniture.dto';
 
 @Controller('furnitures')
 export class FurnitureController {
   constructor(private readonly furnitureService: FurnitureService) {}
-
-  @Post()
-  create(@Body() createFurnitureDto: CreateFurnitureDto) {
-    return this.furnitureService.create(createFurnitureDto);
-  }
 
   @Get()
   findAll() {
@@ -19,10 +13,5 @@ export class FurnitureController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.furnitureService.findOne(id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.furnitureService.remove(id);
   }
 }

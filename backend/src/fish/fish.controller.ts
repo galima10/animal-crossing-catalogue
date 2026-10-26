@@ -1,15 +1,9 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { FishService } from './fish.service';
-import { CreateFishDto } from './fish.dto';
 
 @Controller('fishs')
 export class FishController {
   constructor(private readonly fishService: FishService) {}
-
-  @Post()
-  create(@Body() createFishDto: CreateFishDto) {
-    return this.fishService.create(createFishDto);
-  }
 
   @Get()
   findAll() {

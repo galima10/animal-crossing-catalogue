@@ -4,16 +4,10 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { VillagerModule } from './villager/villager.module';
-import { SpeciesModule } from './species/species.module';
-import { PersonalityModule } from './personality/personality.module';
-import { InsectLocationModule } from './insect-location/insect-location.module';
 import { InsectModule } from './insect/insect.module';
-import { SeaPlaceModule } from './sea-place/sea-place.module';
 import { FishModule } from './fish/fish.module';
 import { SeaCreatureModule } from './sea-creature/sea-creature.module';
-import { MonthRangeApparitionModule } from './month-range-apparition/month-range-apparition.module';
 import { FurnitureModule } from './furniture/furniture.module';
-import { VariationModule } from './variation/variation.module';
 
 @Module({
   imports: [
@@ -22,16 +16,10 @@ import { VariationModule } from './variation/variation.module';
       envFilePath: ['.env'],
     }),
     VillagerModule,
-    SpeciesModule,
-    PersonalityModule,
-    InsectLocationModule,
     InsectModule,
-    SeaPlaceModule,
     FishModule,
     SeaCreatureModule,
-    MonthRangeApparitionModule,
     FurnitureModule,
-    VariationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
