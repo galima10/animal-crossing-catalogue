@@ -20,18 +20,18 @@ enum Weather {
 }
 
 enum Month {
-  JANUARY
-  FEBRUARY
-  MARCH
-  APRIL
+  JAN
+  FEB
+  MAR
+  APR
   MAY
-  JUNE
-  JULY
-  AUGUST
-  SEPTEMBER
-  OCTOBER
-  NOVEMBER
-  DECEMBER
+  JUN
+  JUL
+  AUG
+  SEP
+  OCT
+  NOV
+  DEC
 }
 
 enum Hemisphere {
@@ -72,9 +72,9 @@ model Personality {
 }
 
 model Villager {
-  id       String   @id @default(uuid())
-  name     String   @unique
-  imageUrl String   @map("image_url")
+  id       String @id @default(uuid())
+  name     String @unique
+  imageUrl String @map("image_url")
   birthday String
   gender   Gender
 
@@ -159,8 +159,9 @@ model SeaCreature {
 model MonthRangeApparition {
   id         String     @id @default(uuid())
   month      Month
-  startHour  DateTime?   @map("start_hour")
-  endHour    DateTime?   @map("end_hour")
+  startHour  String?    @map("start_hour")
+  endHour    String?    @map("end_hour")
+  isAllDay   Boolean    @default(false) @map("is_all_day")
   hemisphere Hemisphere
 
   insectId String? @map("insect_id")
@@ -172,9 +173,9 @@ model MonthRangeApparition {
   seaCreatureId String?      @map("sea_creature_id")
   seaCreature   SeaCreature? @relation(fields: [seaCreatureId], references: [id])
 
-  @@unique([insectId, month, hemisphere])
-  @@unique([fishId, month, hemisphere])
-  @@unique([seaCreatureId, month, hemisphere])
+  @@index([insectId, month, hemisphere])
+  @@index([fishId, month, hemisphere])
+  @@index([seaCreatureId, month, hemisphere])
   @@map("month_range_apparitions")
 }
 
