@@ -107,7 +107,7 @@ model Insect {
   monthlyAvalaibility Int     @map("monthly_avalaibility")
   weather             Weather
 
-  insectLocationId      String                 @map("indect_location_id")
+  insectLocationId      String                 @map("insect_location_id")
   insectLocation        InsectLocation         @relation(fields: [insectLocationId], references: [id])
   monthRangeApparitions MonthRangeApparition[]
 
