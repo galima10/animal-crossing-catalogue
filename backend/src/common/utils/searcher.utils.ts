@@ -5,9 +5,7 @@ export function parseSearcher(
   searchableColumns: SearchableColumn[],
   q?: string,
 ) {
-  console.log('q reçu :', JSON.stringify(q));
-  console.log('q nettoyé :', JSON.stringify(q?.trim()));
-  const searchTerm = q?.trim();
+  const searchTerm = q?.trim().toLowerCase();
 
   if (!searchTerm) {
     return Prisma.empty;
