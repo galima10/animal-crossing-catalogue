@@ -6,24 +6,22 @@ import { parseSorter } from 'src/common/utils/sorter.utils';
 import { fishAllowedSorts } from 'src/common/constants/allowed-sorts.constants';
 import { fishSearchableColumns } from 'src/common/constants/allowed-search.constants';
 import { parseSearcher } from 'src/common/utils/searcher.utils';
+import { fishSelect } from './fish-query.sql';
 
 @Injectable()
 export class FishService {
   constructor(private readonly prisma: PrismaService) {}
-  findAll(page?: string, size?: string, sort?: string | string[], q?: string) {
+  async findAll(
+    page?: string,
+    size?: string,
+    sort?: string | string[],
+    q?: string,
+  ): Promise<FishResponseDto[]> {
     const { pageSize, offset } = parsePaging(page, size);
     const orderBy = parseSorter(fishAllowedSorts, sort);
     const search = parseSearcher(fishSearchableColumns, q);
-    return this.prisma.$queryRaw`
-      SELECT 
-        fi.id,
-        fi.name,
-        fi.image_url,
-        fi.selling_price,
-        fi.monthly_avalaibility,
-        spl.name as sea_place_name
-      FROM fishs fi
-      LEFT JOIN sea_places spl ON spl.id = fi.sea_place_id
+    return await this.prisma.$queryRaw`
+      ${fishSelect}
       ${search}
       ORDER BY ${orderBy}
       LIMIT ${pageSize}
@@ -31,7 +29,10 @@ export class FishService {
     `;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} fish`;
+  async findOne(id: string) {
+    return await this.prisma.$queryRaw`
+      ${fishSelect}
+      WHERE fi.id = ${id}
+    `;
   }
 }
