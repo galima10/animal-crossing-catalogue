@@ -3,7 +3,7 @@ import { VillagerResponseDto } from './villager.dto';
 
 @Injectable()
 export class VillagerService {
-  findAll() {
+  findAll(page?: string, size?: string, sort?: string | string[], q?: string) {
     return `This action returns all villager`;
   }
 

@@ -3,7 +3,7 @@ import { InsectResponseDto } from './insect.dto';
 
 @Injectable()
 export class InsectService {
-  findAll() {
+  findAll(page?: string, size?: string, sort?: string | string[], q?: string) {
     return `This action returns all insect`;
   }
 

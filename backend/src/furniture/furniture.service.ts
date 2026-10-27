@@ -4,7 +4,7 @@ import { FurnitureResponseDto } from './furniture.dto';
 @Injectable()
 export class FurnitureService {
 
-  findAll() {
+  findAll(page?: string, size?: string, sort?: string | string[], q?: string) {
     return `This action returns all furniture`;
   }
 

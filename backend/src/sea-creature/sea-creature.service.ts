@@ -3,7 +3,7 @@ import { SeaCreatureResponseDto } from './sea-creature.dto';
 
 @Injectable()
 export class SeaCreatureService {
-  findAll() {
+  findAll(page?: string, size?: string, sort?: string | string[], q?: string) {
     return `This action returns all seaCreature`;
   }
 
