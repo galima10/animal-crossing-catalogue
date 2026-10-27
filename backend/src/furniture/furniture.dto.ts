@@ -4,6 +4,7 @@ export class FurnitureResponseDto {
   imageUrl!: string;
   buyingPrice!: number;
   sellingPrice!: number;
+  variationNames!: string;
   variations!: {
     variationName: string;
     variationImageUrl: string;
