@@ -19,10 +19,10 @@ export const insectsSearchableColumns: SearchableColumn[] = [
     column: 'i.name',
     type: 'text',
   },
-//   {
-//     column: 'il.name',
-//     type: 'text',
-//   },
+  {
+    column: 'il.name',
+    type: 'text',
+  },
 ];
 
 export const seaCreatureSearchableColumns: SearchableColumn[] = [
@@ -45,14 +45,14 @@ export const villagersSearchableColumns: SearchableColumn[] = [
     column: 'vi.gender',
     type: 'enum',
   },
-//   {
-//     column: 'sps.name',
-//     type: 'text',
-//   },
-//   {
-//     column: 'p.name',
-//     type: 'text',
-//   },
+  {
+    column: 'sps.name',
+    type: 'text',
+  },
+  {
+    column: 'p.name',
+    type: 'text',
+  },
 ];
 
 export const furnituresSearchableColumns: SearchableColumn[] = [
