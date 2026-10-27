@@ -12,3 +12,197 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Weather {
+  ANY_EXCEPT_RAIN
+  ANY_WEATHER
+  RAIN_ONLY
+}
+
+enum Month {
+  JAN
+  FEB
+  MAR
+  APR
+  MAY
+  JUN
+  JUL
+  AUG
+  SEP
+  OCT
+  NOV
+  DEC
+}
+
+enum Hemisphere {
+  SOUTH
+  NORTH
+}
+
+enum Category {
+  HOUSEWARE
+  MISCELLANEOUS
+  CEILING_DECOR
+  WALL_MOUNTED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+// Villageois
+
+model Species {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  villagers Villager[]
+
+  @@index([name])
+  @@map("species")
+}
+
+model Personality {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  villagers Villager[]
+
+  @@index([name])
+  @@map("personalities")
+}
+
+model Villager {
+  id       String @id @default(uuid())
+  name     String @unique
+  imageUrl String @map("image_url")
+  birthday String
+  gender   Gender
+
+  speciesId String  @map("species_id")
+  species   Species @relation(fields: [speciesId], references: [id])
+
+  personalityId String      @map("personality_id")
+  personality   Personality @relation(fields: [personalityId], references: [id])
+
+  @@index([name])
+  @@map("villagers")
+}
+
+// Insectes
+
+model InsectLocation {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  insects Insect[]
+
+  @@index([name])
+  @@map("insect_locations")
+}
+
+model Insect {
+  id                  String  @id @default(uuid())
+  name                String  @unique
+  imageUrl            String  @map("image_url")
+  sellingPrice        Decimal @map("selling_price")
+  monthlyAvalaibility Int     @map("monthly_avalaibility")
+  weather             Weather
+
+  insectLocationId      String                 @map("insect_location_id")
+  insectLocation        InsectLocation         @relation(fields: [insectLocationId], references: [id])
+  monthRangeApparitions MonthRangeApparition[]
+
+  @@index([name])
+  @@map("insects")
+}
+
+// Poissons
+model SeaPlace {
+  id     String @id @default(uuid())
+  name   String @unique
+  fishes Fish[]
+
+  @@index([name])
+  @@map("sea_places")
+}
+
+model Fish {
+  id                  String  @id @default(uuid())
+  name                String  @unique
+  imageUrl            String  @map("image_url")
+  sellingPrice        Decimal @map("selling_price")
+  monthlyAvalaibility Int     @map("monthly_avalaibility")
+
+  seaPlaceId            String                 @map("sea_place_id")
+  seaPlace              SeaPlace               @relation(fields: [seaPlaceId], references: [id])
+  monthRangeApparitions MonthRangeApparition[]
+
+  @@index([name])
+  @@map("fishs")
+}
+
+// Créatures marines et crustacés
+
+model SeaCreature {
+  id                    String                 @id @default(uuid())
+  name                  String                 @unique
+  imageUrl              String                 @map("image_url")
+  sellingPrice          Decimal                @map("selling_price")
+  monthlyAvalaibility   Int                    @map("monthly_avalaibility")
+  monthRangeApparitions MonthRangeApparition[]
+
+  @@index([name])
+  @@map("sea_creatures")
+}
+
+// Fourchette d'horaires d'apparition par mois
+
+model MonthRangeApparition {
+  id         String     @id @default(uuid())
+  month      Month
+  startHour  String?    @map("start_hour")
+  endHour    String?    @map("end_hour")
+  isAllDay   Boolean    @default(false) @map("is_all_day")
+  hemisphere Hemisphere
+
+  insectId String? @map("insect_id")
+  insect   Insect? @relation(fields: [insectId], references: [id])
+
+  fishId String? @map("fish_id")
+  fish   Fish?   @relation(fields: [fishId], references: [id])
+
+  seaCreatureId String?      @map("sea_creature_id")
+  seaCreature   SeaCreature? @relation(fields: [seaCreatureId], references: [id])
+
+  @@index([insectId, month, hemisphere])
+  @@index([fishId, month, hemisphere])
+  @@index([seaCreatureId, month, hemisphere])
+  @@map("month_range_apparitions")
+}
+
+// Meubles
+
+model Furniture {
+  id           String      @id @default(uuid())
+  name         String      @unique
+  category     Category
+  imageUrl     String      @map("image_url")
+  buyingPrice  Decimal?    @map("buying_price")
+  sellingPrice Decimal?    @map("selling_price")
+  variations   Variation[]
+
+  @@index([name])
+  @@map("furnitures")
+}
+
+model Variation {
+  id                String @id @default(uuid())
+  variationName     String @map("variation_name")
+  variationImageUrl String @map("variation_image_url")
+
+  furnitureId String    @map("furniture_id")
+  furniture   Furniture @relation(fields: [furnitureId], references: [id])
+
+  @@unique([furnitureId, variationName])
+  @@index([variationName])
+  @@map("variations")
+}
