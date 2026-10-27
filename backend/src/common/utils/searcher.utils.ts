@@ -4,24 +4,29 @@ import type { SearchableColumn } from '../constants/allowed-search.constants';
 export function parseSearcher(
   searchableColumns: SearchableColumn[],
   q?: string,
-) {
-  const searchTerm = q?.trim().toLowerCase();
+  extraConditions: Prisma.Sql[] = [],
+): Prisma.Sql {
+  const searchTerm = q?.trim();
 
   if (!searchTerm) {
     return Prisma.empty;
   }
 
-  return Prisma.sql`WHERE ${Prisma.join(
-    searchableColumns.map(({ column, type }) => {
-      const sqlColumn = Prisma.raw(column);
-      const pattern = `%${searchTerm}%`;
+  const pattern = `%${searchTerm}%`;
 
-      if (type === 'enum') {
-        return Prisma.sql`${sqlColumn}::text ILIKE ${pattern}`;
-      }
+  const conditions = searchableColumns.map(({ column, type }) => {
+    const sqlColumn = Prisma.raw(column);
 
-      return Prisma.sql`${sqlColumn} ILIKE ${pattern}`;
-    }),
-    ' OR ',
-  )}`;
+    if (type === 'enum') {
+      return Prisma.sql`${sqlColumn}::text ILIKE ${pattern}`;
+    }
+
+    return Prisma.sql`${sqlColumn} ILIKE ${pattern}`;
+  });
+
+  conditions.push(...extraConditions);
+
+  return Prisma.sql`
+    WHERE (${Prisma.join(conditions, ' OR ')})
+  `;
 }

@@ -64,8 +64,4 @@ export const furnituresSearchableColumns: SearchableColumn[] = [
     column: 'fu.category',
     type: 'enum',
   },
-//   {
-//     column: 'va.names',
-//     type: 'text',
-//   },
 ];
