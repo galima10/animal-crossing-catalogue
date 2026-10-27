@@ -1,8 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-const monthRangesByHemisphere = (
-  hemisphere: 'NORTH' | 'SOUTH',
-) => Prisma.sql`
+const monthRangesByHemisphere = (hemisphere: 'NORTH' | 'SOUTH') => Prisma.sql`
   COALESCE((
     SELECT jsonb_agg(
       jsonb_build_object(
@@ -51,4 +49,11 @@ export const fishSelect = Prisma.sql`
     ) AS "monthRangesApparition"
   FROM fishs fi
   LEFT JOIN sea_places spl ON spl.id = fi.sea_place_id
+`;
+
+export const countQuery = (search: Prisma.Sql) => Prisma.sql`
+  SELECT COUNT(*)::int AS total
+  FROM fishs fi
+  LEFT JOIN sea_places spl ON spl.id = fi.sea_place_id
+  ${search}
 `;

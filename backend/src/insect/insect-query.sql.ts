@@ -52,3 +52,10 @@ export const insectSelect = Prisma.sql`
   FROM insects i
   LEFT JOIN insect_locations il ON il.id = i.insect_location_id
 `;
+
+export const countQuery = (search: Prisma.Sql) => Prisma.sql`
+  SELECT COUNT(*)::int AS total
+  FROM insects i
+  LEFT JOIN insect_locations il ON il.id = i.insect_location_id
+  ${search}
+`;
