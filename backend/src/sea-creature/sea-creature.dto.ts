@@ -6,12 +6,12 @@ export class SeaCreatureResponseDto {
   monthRangesApparition!: {
     north: {
       month: string;
-      ranges: { startHour: string; endHour: string };
+      ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
     south: {
       month: string;
-      ranges: { startHour: string; endHour: string };
+      ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
   };

@@ -68,7 +68,7 @@ model Personality {
   villagers Villager[]
 
   @@index([name])
-  @@map("personnalities")
+  @@map("personalities")
 }
 
 model Villager {
@@ -81,8 +81,8 @@ model Villager {
   speciesId String  @map("species_id")
   species   Species @relation(fields: [speciesId], references: [id])
 
-  personnalityId String      @map("personnality_id")
-  personnality   Personality @relation(fields: [personnalityId], references: [id])
+  personalityId String      @map("personality_id")
+  personality   Personality @relation(fields: [personalityId], references: [id])
 
   @@index([name])
   @@map("villagers")
@@ -107,7 +107,7 @@ model Insect {
   monthlyAvalaibility Int     @map("monthly_avalaibility")
   weather             Weather
 
-  insectLocationId      String                 @map("indect_location_id")
+  insectLocationId      String                 @map("insect_location_id")
   insectLocation        InsectLocation         @relation(fields: [insectLocationId], references: [id])
   monthRangeApparitions MonthRangeApparition[]
 

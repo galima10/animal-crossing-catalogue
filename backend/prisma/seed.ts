@@ -253,12 +253,12 @@ async function insertVillagers() {
   ];
 
   await prisma.species.createMany({
-    data: speciesNames.map((name) => ({ name })),
+    data: speciesNames.map((name) => ({ name: name.toLowerCase() })),
     skipDuplicates: true,
   });
 
   await prisma.personality.createMany({
-    data: personalityNames.map((name) => ({ name })),
+    data: personalityNames.map((name) => ({ name: name.toLowerCase() })),
     skipDuplicates: true,
   });
 
@@ -271,10 +271,10 @@ async function insertVillagers() {
   );
 
   for (const villager of villagers) {
-    const speciesId = speciesMap.get(villager.Species.trim());
-    const personnalityId = personalityMap.get(villager.Personality.trim());
+    const speciesId = speciesMap.get(villager.Species.trim().toLowerCase());
+    const personalityId = personalityMap.get(villager.Personality.trim().toLowerCase());
 
-    if (!speciesId || !personnalityId) {
+    if (!speciesId || !personalityId) {
       throw new Error(
         `Espèce ou personnalité introuvable pour ${villager.Name}`,
       );
@@ -289,21 +289,21 @@ async function insertVillagers() {
     }
 
     await prisma.villager.upsert({
-      where: { name: villager.Name.trim() },
+      where: { name: villager.Name.trim().toLowerCase() },
       update: {
         imageUrl: villager.Image.trim(),
         birthday: villager.Birthday.trim(),
         gender: genderValue as Gender,
         speciesId,
-        personnalityId,
+        personalityId,
       },
       create: {
-        name: villager.Name.trim(),
+        name: villager.Name.trim().toLowerCase(),
         imageUrl: villager.Image.trim(),
         birthday: villager.Birthday.trim(),
         gender: genderValue as Gender,
         speciesId,
-        personnalityId,
+        personalityId,
       },
     });
   }
@@ -320,12 +320,12 @@ async function insertInsects() {
 
   const insectLocationNames = [
     ...new Set(
-      insects.map((insect) => insect['Where/How'].trim()).filter(Boolean),
+      insects.map((insect) => insect['Where/How'].trim().toLowerCase()).filter(Boolean),
     ),
   ];
 
   await prisma.insectLocation.createMany({
-    data: insectLocationNames.map((name) => ({ name })),
+    data: insectLocationNames.map((name) => ({ name: name.toLowerCase() })),
     skipDuplicates: true,
   });
 
@@ -336,7 +336,7 @@ async function insertInsects() {
   );
 
   for (const insect of insects) {
-    const insectLocationId = insectLocationsMap.get(insect['Where/How'].trim());
+    const insectLocationId = insectLocationsMap.get(insect['Where/How'].trim().toLowerCase());
 
     if (!insectLocationId) {
       throw new Error(
@@ -359,7 +359,7 @@ async function insertInsects() {
     }
 
     await prisma.insect.upsert({
-      where: { name: insect.Name.trim() },
+      where: { name: insect.Name.trim().toLowerCase() },
       update: {
         imageUrl: insect.Image.trim(),
         sellingPrice: Number(insect.Sell),
@@ -368,7 +368,7 @@ async function insertInsects() {
         insectLocationId,
       },
       create: {
-        name: insect.Name.trim(),
+        name: insect.Name.trim().toLowerCase(),
         imageUrl: insect.Image.trim(),
         sellingPrice: Number(insect.Sell),
         monthlyAvalaibility: Number(insect['Total Catches to Unlock']),
@@ -379,7 +379,7 @@ async function insertInsects() {
 
     const { id: insectId } = await prisma.insect.findFirstOrThrow({
       where: {
-        name: insect.Name,
+        name: insect.Name.toLowerCase(),
       },
       select: {
         id: true,
@@ -400,11 +400,11 @@ async function insertFishs() {
   const fishs = (await parseCsv(filesPath.fish)) as InsectCsv[];
 
   const seaPlacesNames = [
-    ...new Set(fishs.map((fish) => fish['Where/How'].trim()).filter(Boolean)),
+    ...new Set(fishs.map((fish) => fish['Where/How'].trim().toLowerCase()).filter(Boolean)),
   ];
 
   await prisma.seaPlace.createMany({
-    data: seaPlacesNames.map((name) => ({ name })),
+    data: seaPlacesNames.map((name) => ({ name: name.toLowerCase() })),
     skipDuplicates: true,
   });
 
@@ -413,14 +413,14 @@ async function insertFishs() {
   const seaPlacesMap = new Map(seaPlaces.map((item) => [item.name, item.id]));
 
   for (const fish of fishs) {
-    const seaPlaceId = seaPlacesMap.get(fish['Where/How'].trim());
+    const seaPlaceId = seaPlacesMap.get(fish['Where/How'].trim().toLowerCase());
 
     if (!seaPlaceId) {
       throw new Error(`Localisation du poisson introuvable pour ${fish.Name}`);
     }
 
     await prisma.fish.upsert({
-      where: { name: fish.Name.trim() },
+      where: { name: fish.Name.trim().toLowerCase() },
       update: {
         imageUrl: fish.Image.trim(),
         sellingPrice: Number(fish.Sell),
@@ -428,7 +428,7 @@ async function insertFishs() {
         seaPlaceId,
       },
       create: {
-        name: fish.Name.trim(),
+        name: fish.Name.trim().toLowerCase(),
         imageUrl: fish.Image.trim(),
         sellingPrice: Number(fish.Sell),
         monthlyAvalaibility: Number(fish['Total Catches to Unlock']),
@@ -438,7 +438,7 @@ async function insertFishs() {
 
     const { id: fishId } = await prisma.fish.findFirstOrThrow({
       where: {
-        name: fish.Name,
+        name: fish.Name.toLowerCase(),
       },
       select: {
         id: true,
@@ -453,6 +453,46 @@ async function insertFishs() {
     `${seaPlaces.length} localisations d'insectes détectées, ` +
       `${fishs.length} insectes traités.`,
   );
+}
+
+async function insertSeaCreatures() {
+  const seaCreatures = (await parseCsv(filesPath.seaCreatures)) as InsectCsv[];
+
+  for (const seaCreature of seaCreatures) {
+    await prisma.seaCreature.upsert({
+      where: { name: seaCreature.Name.trim().toLowerCase() },
+      update: {
+        imageUrl: seaCreature.Image.trim(),
+        sellingPrice: Number(seaCreature.Sell),
+        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
+      },
+      create: {
+        name: seaCreature.Name.trim().toLowerCase(),
+        imageUrl: seaCreature.Image.trim(),
+        sellingPrice: Number(seaCreature.Sell),
+        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
+      },
+    });
+
+    const { id: seaCreatureId } = await prisma.seaCreature.findFirstOrThrow({
+      where: {
+        name: seaCreature.Name.toLowerCase(),
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const availabilities = getMonthAvalaibilities(seaCreature);
+
+    await insertMonthRangeApparitions(
+      availabilities,
+      seaCreatureId,
+      'seaCreature',
+    );
+  }
+
+  console.log(`${seaCreatures.length} créatures marines et crustacés traités.`);
 }
 
 function getUniqueVariationsFurniture(rows: FurnitureCsv[]): {
@@ -479,46 +519,6 @@ function getUniqueVariationsFurniture(rows: FurnitureCsv[]): {
   };
 }
 
-async function insertSeaCreatures() {
-  const seaCreatures = (await parseCsv(filesPath.seaCreatures)) as InsectCsv[];
-
-  for (const seaCreature of seaCreatures) {
-    await prisma.seaCreature.upsert({
-      where: { name: seaCreature.Name.trim() },
-      update: {
-        imageUrl: seaCreature.Image.trim(),
-        sellingPrice: Number(seaCreature.Sell),
-        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
-      },
-      create: {
-        name: seaCreature.Name.trim(),
-        imageUrl: seaCreature.Image.trim(),
-        sellingPrice: Number(seaCreature.Sell),
-        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
-      },
-    });
-
-    const { id: seaCreatureId } = await prisma.seaCreature.findFirstOrThrow({
-      where: {
-        name: seaCreature.Name,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    const availabilities = getMonthAvalaibilities(seaCreature);
-
-    await insertMonthRangeApparitions(
-      availabilities,
-      seaCreatureId,
-      'seaCreature',
-    );
-  }
-
-  console.log(`${seaCreatures.length} créatures marines et crustacés traités.`);
-}
-
 async function insertVariations(furnitureVariations: FurnitureCsv[]) {
   const furnitures = await prisma.furniture.findMany({
     select: {
@@ -532,13 +532,13 @@ async function insertVariations(furnitureVariations: FurnitureCsv[]) {
   );
 
   for (const furniture of furnitureVariations) {
-    const furnitureId = furnitureIdByName.get(furniture.Name.trim());
+    const furnitureId = furnitureIdByName.get(furniture.Name.trim().toLowerCase());
 
     if (!furnitureId) {
       throw new Error(`Meuble introuvable : ${furniture.Name}`);
     }
 
-    const variationName = furniture.Variation.trim();
+    const variationName = furniture.Variation.trim().toLowerCase();
 
     await prisma.variation.upsert({
       where: {
@@ -552,17 +552,20 @@ async function insertVariations(furnitureVariations: FurnitureCsv[]) {
       },
       create: {
         furnitureId,
-        variationName,
+        variationName: variationName,
         variationImageUrl: furniture.Image.trim(),
       },
     });
   }
 }
 
-async function insertFurnitures(uniqueFurnitures: FurnitureCsv[], category: Category) {
+async function insertFurnitures(
+  uniqueFurnitures: FurnitureCsv[],
+  category: Category,
+) {
   for (const furniture of uniqueFurnitures) {
     await prisma.furniture.upsert({
-      where: { name: furniture.Name.trim() },
+      where: { name: furniture.Name.trim().toLowerCase() },
       update: {
         category: category,
         imageUrl: furniture.Image.trim(),
@@ -570,7 +573,7 @@ async function insertFurnitures(uniqueFurnitures: FurnitureCsv[], category: Cate
         sellingPrice: Number(furniture.Sell),
       },
       create: {
-        name: furniture.Name.trim(),
+        name: furniture.Name.trim().toLowerCase(),
         category: category,
         imageUrl: furniture.Image.trim(),
         buyingPrice: Number(furniture.Buy),
@@ -586,25 +589,35 @@ async function insertHousewares() {
     getUniqueVariationsFurniture(housewares);
   await insertFurnitures(uniqueFurnitures, 'HOUSEWARE');
   await insertVariations(furnitureVariations);
-  console.log(`${uniqueFurnitures.length + furnitureVariations.length} articles ménagés traités.`);
+  console.log(
+    `${uniqueFurnitures.length + furnitureVariations.length} articles ménagés traités.`,
+  );
 }
 
 async function insertMiscellaneous() {
-  const miscellaneous = (await parseCsv(filesPath.miscellaneous)) as FurnitureCsv[];
+  const miscellaneous = (await parseCsv(
+    filesPath.miscellaneous,
+  )) as FurnitureCsv[];
   const { uniqueFurnitures, furnitureVariations } =
     getUniqueVariationsFurniture(miscellaneous);
   await insertFurnitures(uniqueFurnitures, 'MISCELLANEOUS');
   await insertVariations(furnitureVariations);
-  console.log(`${uniqueFurnitures.length + furnitureVariations.length} meubles divers traités.`);
+  console.log(
+    `${uniqueFurnitures.length + furnitureVariations.length} meubles divers traités.`,
+  );
 }
 
 async function insertCeilingDecor() {
-  const ceilingDecor = (await parseCsv(filesPath.ceilingDecor)) as FurnitureCsv[];
+  const ceilingDecor = (await parseCsv(
+    filesPath.ceilingDecor,
+  )) as FurnitureCsv[];
   const { uniqueFurnitures, furnitureVariations } =
     getUniqueVariationsFurniture(ceilingDecor);
   await insertFurnitures(uniqueFurnitures, 'CEILING_DECOR');
   await insertVariations(furnitureVariations);
-  console.log(`${uniqueFurnitures.length + furnitureVariations.length} décorations de plafond traités.`);
+  console.log(
+    `${uniqueFurnitures.length + furnitureVariations.length} décorations de plafond traités.`,
+  );
 }
 
 async function insertWallMounted() {
@@ -613,7 +626,9 @@ async function insertWallMounted() {
     getUniqueVariationsFurniture(wallMounted);
   await insertFurnitures(uniqueFurnitures, 'WALL_MOUNTED');
   await insertVariations(furnitureVariations);
-  console.log(`${uniqueFurnitures.length + furnitureVariations.length} meubles fixés au mur traités.`);
+  console.log(
+    `${uniqueFurnitures.length + furnitureVariations.length} meubles fixés au mur traités.`,
+  );
 }
 
 async function main() {
