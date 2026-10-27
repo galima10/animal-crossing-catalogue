@@ -11,7 +11,7 @@ export const villagersAllowedSorts: Record<string, string> = {
   name: 'vi.name',
   gender: 'vi.gender',
   speciesName: 'sps.name',
-  personnalityName: 'p.name',
+  personalityName: 'p.name',
 };
 
 export const insectsAllowedSorts: Record<string, string> = {

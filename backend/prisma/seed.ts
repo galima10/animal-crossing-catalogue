@@ -272,9 +272,9 @@ async function insertVillagers() {
 
   for (const villager of villagers) {
     const speciesId = speciesMap.get(villager.Species.trim().toLowerCase());
-    const personnalityId = personalityMap.get(villager.Personality.trim().toLowerCase());
+    const personalityId = personalityMap.get(villager.Personality.trim().toLowerCase());
 
-    if (!speciesId || !personnalityId) {
+    if (!speciesId || !personalityId) {
       throw new Error(
         `Espèce ou personnalité introuvable pour ${villager.Name}`,
       );
@@ -295,7 +295,7 @@ async function insertVillagers() {
         birthday: villager.Birthday.trim(),
         gender: genderValue as Gender,
         speciesId,
-        personnalityId,
+        personalityId,
       },
       create: {
         name: villager.Name.trim().toLowerCase(),
@@ -303,7 +303,7 @@ async function insertVillagers() {
         birthday: villager.Birthday.trim(),
         gender: genderValue as Gender,
         speciesId,
-        personnalityId,
+        personalityId,
       },
     });
   }
