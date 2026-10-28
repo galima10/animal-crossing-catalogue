@@ -43,6 +43,19 @@ export const insectSelect = Prisma.sql`
     i.name,
     i.image_url AS "imageUrl",
     i.selling_price AS "sellingPrice",
+    i.weather,
+    il.name AS "insectLocationName"
+  FROM insects i
+  LEFT JOIN insect_locations il ON il.id = i.insect_location_id
+`;
+
+export const insectDetails = Prisma.sql`
+  SELECT
+    i.id,
+    i.name,
+    i.image_url AS "imageUrl",
+    i.selling_price AS "sellingPrice",
+    i.weather,
     il.name AS "insectLocationName",
     jsonb_build_object(
       'north', ${monthRangesByHemisphere('NORTH')},

@@ -21,19 +21,32 @@ export class VillagerService {
     size?: string,
     sort?: string | string[],
     q?: string,
+    personalityId?: string,
+    speciesId?: string,
   ): Promise<{
     data: VillagerResponseDto[];
     pagination: PaginationMetaData;
   }> {
     const { currentPage, pageSize, offset } = parsePaging(page, size);
     const orderBy = parseSorter(villagersAllowedSorts, sort);
-    const search = parseSearcher(villagersSearchableColumns, q);
+
+    const searchConditions = parseSearcher(villagersSearchableColumns, q);
+    const conditions = [...searchConditions];
+    if (personalityId) {
+      conditions.push(Prisma.sql`vi.personality_id = ${personalityId}`);
+    }
+    if (speciesId) {
+      conditions.push(Prisma.sql`vi.species_id = ${speciesId}`);
+    }
+    const where = conditions.length
+      ? Prisma.sql`WHERE ${Prisma.join(conditions, ' AND ')}`
+      : Prisma.empty;
     const [{ total }] = await this.prisma.$queryRaw<{ total: number }[]>(
-      countQuery(search),
+      countQuery(where),
     );
     const data = await this.prisma.$queryRaw<VillagerResponseDto[]>(Prisma.sql`
         ${villagerSelect}
-        ${search}
+        ${where}
         ORDER BY ${orderBy}
         LIMIT ${pageSize}
         OFFSET ${offset}

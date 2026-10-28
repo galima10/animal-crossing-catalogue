@@ -16,6 +16,26 @@ export const furnitureSelect = Prisma.sql`
             )
         FROM variations va
         WHERE va.furniture_id = fu.id
+    ), '') AS variationNames
+  FROM furnitures fu
+`;
+
+export const furnitureDetails = Prisma.sql`
+  SELECT
+    fu.id,
+    fu.name,
+    fu.category,
+    fu.image_url AS "imageUrl",
+    fu.buying_price AS "buyingPrice",
+    fu.selling_price AS "sellingPrice",
+    COALESCE((
+        SELECT
+            string_agg(
+                DISTINCT va.variation_name,
+                ', ' ORDER BY va.variation_name
+            )
+        FROM variations va
+        WHERE va.furniture_id = fu.id
     ), '') AS variationNames,
     COALESCE((
         SELECT

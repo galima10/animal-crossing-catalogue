@@ -1,3 +1,5 @@
+import { Month } from "@prisma/client";
+
 export class FishResponseDto {
   name!: string;
   imageUrl!: string;
@@ -5,12 +7,12 @@ export class FishResponseDto {
   seaPlaceName!: string;
   monthRangesApparition!: {
     north: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
     south: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];

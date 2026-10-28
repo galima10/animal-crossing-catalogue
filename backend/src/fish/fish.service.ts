@@ -10,7 +10,7 @@ import { parseSorter } from 'src/common/utils/sorter.utils';
 import { fishAllowedSorts } from 'src/common/constants/allowed-sorts.constants';
 import { fishSearchableColumns } from 'src/common/constants/allowed-search.constants';
 import { parseSearcher } from 'src/common/utils/searcher.utils';
-import { fishSelect, countQuery } from './fish-query.sql';
+import { fishSelect, fishDetails, countQuery } from './fish-query.sql';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -21,19 +21,30 @@ export class FishService {
     size?: string,
     sort?: string | string[],
     q?: string,
+    seaPlaceId?: string,
   ): Promise<{
     data: FishResponseDto[];
     pagination: PaginationMetaData;
   }> {
     const { currentPage, pageSize, offset } = parsePaging(page, size);
     const orderBy = parseSorter(fishAllowedSorts, sort);
-    const search = parseSearcher(fishSearchableColumns, q);
+    const searchConditions = parseSearcher(fishSearchableColumns, q);
+    const conditions = [...searchConditions];
+    if (seaPlaceId) {
+      conditions.push(
+        Prisma.sql`fi.sea_place_id = ${seaPlaceId}`,
+      );
+    }
+    const where = conditions.length
+      ? Prisma.sql`WHERE ${Prisma.join(conditions, ' AND ')}`
+      : Prisma.empty;
+
     const [{ total }] = await this.prisma.$queryRaw<{ total: number }[]>(
-      countQuery(search),
+      countQuery(where),
     );
     const data = await this.prisma.$queryRaw<FishResponseDto[]>(Prisma.sql`
       ${fishSelect}
-      ${search}
+      ${where}
       ORDER BY ${orderBy}
       LIMIT ${pageSize}
       OFFSET ${offset}
@@ -46,7 +57,7 @@ export class FishService {
 
   async findOne(id: string) {
     return await this.prisma.$queryRaw`
-      ${fishSelect}
+      ${fishDetails}
       WHERE fi.id = ${id}
     `;
   }

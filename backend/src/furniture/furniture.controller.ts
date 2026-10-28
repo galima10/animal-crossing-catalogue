@@ -11,8 +11,9 @@ export class FurnitureController {
     @Query('size') size?: string,
     @Query('sort') sort?: string | string[],
     @Query('q') q?: string,
+    @Query('category') category?: string,
   ) {
-    return this.furnitureService.findAll(page, size, sort, q);
+    return this.furnitureService.findAll(page, size, sort, q, category);
   }
 
   @Get(':id')

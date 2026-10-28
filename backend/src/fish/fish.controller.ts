@@ -11,8 +11,9 @@ export class FishController {
     @Query('size') size?: string,
     @Query('sort') sort?: string | string[],
     @Query('q') q?: string,
+    @Query('sea_place_id') seaPlaceId?: string,
   ) {
-    return this.fishService.findAll(page, size, sort, q);
+    return this.fishService.findAll(page, size, sort, q, seaPlaceId);
   }
 
   @Get(':id')
