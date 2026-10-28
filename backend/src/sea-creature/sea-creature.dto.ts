@@ -2,7 +2,6 @@ export class SeaCreatureResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
-  monthlyAvalaibility!: number;
   monthRangesApparition!: {
     north: {
       month: string;

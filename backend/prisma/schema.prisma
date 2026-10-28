@@ -104,7 +104,6 @@ model Insect {
   name                String  @unique
   imageUrl            String  @map("image_url")
   sellingPrice        Decimal @map("selling_price")
-  monthlyAvalaibility Int     @map("monthly_avalaibility")
   weather             Weather
 
   insectLocationId      String                 @map("insect_location_id")
@@ -130,7 +129,6 @@ model Fish {
   name                String  @unique
   imageUrl            String  @map("image_url")
   sellingPrice        Decimal @map("selling_price")
-  monthlyAvalaibility Int     @map("monthly_avalaibility")
 
   seaPlaceId            String                 @map("sea_place_id")
   seaPlace              SeaPlace               @relation(fields: [seaPlaceId], references: [id])
@@ -147,7 +145,6 @@ model SeaCreature {
   name                  String                 @unique
   imageUrl              String                 @map("image_url")
   sellingPrice          Decimal                @map("selling_price")
-  monthlyAvalaibility   Int                    @map("monthly_avalaibility")
   monthRangeApparitions MonthRangeApparition[]
 
   @@index([name])
