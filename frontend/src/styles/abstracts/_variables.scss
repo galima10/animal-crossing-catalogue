@@ -1,0 +1,35 @@
+@use "@/styles/abstracts/functions" as *;
+
+// Colors
+$body-bg-color: #e4dfc1;
+$body-text-color: #695b4f;
+
+$btn-bg-color: #f6f8e0;
+$btn-text-color: #bcb6a3;
+$btn-text-color-hover: #6d5818;
+$btn-text-color-active: #f99800;
+
+$bar-bg-color: #fefff2;
+$bar-underline-color: #d9d9c2;
+
+$card-border-color: #f3efdf;
+
+// Fonts
+$font-heading: "Fira-Sans", sans-serif;
+$font-body: "Signika-Negative", sans-serif;
+
+// Weight
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+
+// Responsive break point
+$bp-mobile: 768px;
+
+// Ratios
+$desktop-font-ratio: 1.25;
+$mobile-font-ratio: 1.2;
+
+// Spacing
+$padding-global: spaceCalc(1.5rem, 8.5rem, 12rem);
