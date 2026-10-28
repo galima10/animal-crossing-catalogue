@@ -2,7 +2,6 @@ export class InsectResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
-  monthlyAvalaibility!: number;
   insectLocationName!: string;
   monthRangesApparition!: {
     north: {

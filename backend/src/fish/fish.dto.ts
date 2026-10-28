@@ -2,7 +2,6 @@ export class FishResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
-  monthlyAvalaibility!: number;
   seaPlaceName!: string;
   monthRangesApparition!: {
     north: {

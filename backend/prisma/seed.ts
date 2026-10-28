@@ -56,7 +56,6 @@ interface SeaCreatureCsv extends MonthRangesCsv {
   Name: string;
   Image: string;
   Sell: string;
-  'Total Catches to Unlock': string;
 }
 
 interface FurnitureCsv {
@@ -363,7 +362,6 @@ async function insertInsects() {
       update: {
         imageUrl: insect.Image.trim(),
         sellingPrice: Number(insect.Sell),
-        monthlyAvalaibility: Number(insect['Total Catches to Unlock']),
         weather: weatherValue as Weather,
         insectLocationId,
       },
@@ -371,7 +369,6 @@ async function insertInsects() {
         name: insect.Name.trim().toLowerCase(),
         imageUrl: insect.Image.trim(),
         sellingPrice: Number(insect.Sell),
-        monthlyAvalaibility: Number(insect['Total Catches to Unlock']),
         weather: weatherValue as Weather,
         insectLocationId,
       },
@@ -424,14 +421,12 @@ async function insertFishs() {
       update: {
         imageUrl: fish.Image.trim(),
         sellingPrice: Number(fish.Sell),
-        monthlyAvalaibility: Number(fish['Total Catches to Unlock']),
         seaPlaceId,
       },
       create: {
         name: fish.Name.trim().toLowerCase(),
         imageUrl: fish.Image.trim(),
         sellingPrice: Number(fish.Sell),
-        monthlyAvalaibility: Number(fish['Total Catches to Unlock']),
         seaPlaceId,
       },
     });
@@ -464,13 +459,11 @@ async function insertSeaCreatures() {
       update: {
         imageUrl: seaCreature.Image.trim(),
         sellingPrice: Number(seaCreature.Sell),
-        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
       },
       create: {
         name: seaCreature.Name.trim().toLowerCase(),
         imageUrl: seaCreature.Image.trim(),
         sellingPrice: Number(seaCreature.Sell),
-        monthlyAvalaibility: Number(seaCreature['Total Catches to Unlock']),
       },
     });
 
