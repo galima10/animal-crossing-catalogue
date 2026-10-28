@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InsectResponseDto } from './insect.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { insectSelect, countQuery } from './insect-query.sql';
+import { insectSelect, insectDetails, countQuery } from './insect-query.sql';
 import {
   parsePaging,
   returnPagingMetaData,
@@ -21,19 +21,36 @@ export class InsectService {
     size?: string,
     sort?: string | string[],
     q?: string,
+    weather?: string,
+    insectLocationId?: string,
   ): Promise<{
     data: InsectResponseDto[];
     pagination: PaginationMetaData;
   }> {
     const { currentPage, pageSize, offset } = parsePaging(page, size);
     const orderBy = parseSorter(insectsAllowedSorts, sort);
-    const search = parseSearcher(insectsSearchableColumns, q);
+
+    const searchConditions = parseSearcher(insectsSearchableColumns, q);
+    const conditions = [...searchConditions];
+    if (weather) {
+      conditions.push(
+        Prisma.sql`i.weather = ${weather.toUpperCase()}::"Weather"`,
+      );
+    }
+    if (insectLocationId) {
+      conditions.push(
+        Prisma.sql`i.insect_location_id = ${insectLocationId}`,
+      );
+    }
+    const where = conditions.length
+      ? Prisma.sql`WHERE ${Prisma.join(conditions, ' AND ')}`
+      : Prisma.empty;
     const [{ total }] = await this.prisma.$queryRaw<{ total: number }[]>(
-      countQuery(search),
+      countQuery(where),
     );
     const data = await this.prisma.$queryRaw<InsectResponseDto[]>(Prisma.sql`
       ${insectSelect}
-      ${search}
+      ${where}
       ORDER BY ${orderBy}
       LIMIT ${pageSize}
       OFFSET ${offset}
@@ -46,7 +63,7 @@ export class InsectService {
 
   async findOne(id: string) {
     return await this.prisma.$queryRaw`
-        ${insectSelect}
+        ${insectDetails}
         WHERE i.id = ${id}
       `;
   }

@@ -12,6 +12,7 @@ import { furnituresAllowedSorts } from 'src/common/constants/allowed-sorts.const
 import { furnituresSearchableColumns } from 'src/common/constants/allowed-search.constants';
 import {
   furnitureSelect,
+  furnitureDetails,
   countQuery,
   furnitureExtraSearchConditions,
 } from './furniture-query.sql';
@@ -25,24 +26,36 @@ export class FurnitureService {
     size?: string,
     sort?: string | string[],
     q?: string,
+    category?: string,
   ): Promise<{
     data: FurnitureResponseDto[];
     pagination: PaginationMetaData;
   }> {
     const { currentPage, pageSize, offset } = parsePaging(page, size);
     const orderBy = parseSorter(furnituresAllowedSorts, sort);
-    const extraConditions = q?.trim() ? furnitureExtraSearchConditions(q) : [];
-    const search = parseSearcher(
+
+    const searchConditions = parseSearcher(
       furnituresSearchableColumns,
       q,
-      extraConditions,
+      q?.trim() ? furnitureExtraSearchConditions(q) : [],
     );
+
+    const conditions = [...searchConditions];
+
+    if (category) {
+      conditions.push(Prisma.sql`fu.category = ${category.toUpperCase()}::"Category"`);
+    }
+
+    const where = conditions.length
+      ? Prisma.sql`WHERE ${Prisma.join(conditions, ' AND ')}`
+      : Prisma.empty;
+
     const [{ total }] = await this.prisma.$queryRaw<{ total: number }[]>(
-      countQuery(search),
+      countQuery(where),
     );
     const data = await this.prisma.$queryRaw<FurnitureResponseDto[]>(Prisma.sql`
       ${furnitureSelect}
-      ${search}
+      ${where}
       ORDER BY ${orderBy}
       LIMIT ${pageSize}
       OFFSET ${offset}
@@ -55,7 +68,7 @@ export class FurnitureService {
 
   async findOne(id: string) {
     return await this.prisma.$queryRaw`
-      ${furnitureSelect}
+      ${furnitureDetails}
       WHERE fu.id = ${id}
     `;
   }

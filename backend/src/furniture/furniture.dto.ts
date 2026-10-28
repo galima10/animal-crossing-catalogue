@@ -1,6 +1,8 @@
+import { Category } from "@prisma/client";
+
 export class FurnitureResponseDto {
   name!: string;
-  category!: 'houseware' | 'miscellaneous' | 'ceilingDecor' | 'wallMounted';
+  category!: Category;
   imageUrl!: string;
   buyingPrice!: number;
   sellingPrice!: number;

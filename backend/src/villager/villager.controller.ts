@@ -11,8 +11,17 @@ export class VillagerController {
     @Query('size') size?: string,
     @Query('sort') sort?: string | string[],
     @Query('q') q?: string,
+    @Query('personality_id') personalityId?: string,
+    @Query('species_id') speciesId?: string,
   ) {
-    return this.villagerService.findAll(page, size, sort, q);
+    return this.villagerService.findAll(
+      page,
+      size,
+      sort,
+      q,
+      personalityId,
+      speciesId,
+    );
   }
 
   @Get(':id')

@@ -40,6 +40,15 @@ export const seaCreatureSelect = Prisma.sql`
     sc.id,
     sc.name,
     sc.image_url AS "imageUrl",
+    sc.selling_price AS "sellingPrice"
+  FROM sea_creatures sc
+`;
+
+export const seaCreatureDetails = Prisma.sql`
+  SELECT
+    sc.id,
+    sc.name,
+    sc.image_url AS "imageUrl",
     sc.selling_price AS "sellingPrice",
     jsonb_build_object(
       'north', ${monthRangesByHemisphere('NORTH')},

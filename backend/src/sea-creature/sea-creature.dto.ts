@@ -1,15 +1,17 @@
+import { Month } from "@prisma/client";
+
 export class SeaCreatureResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
   monthRangesApparition!: {
     north: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
     south: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
