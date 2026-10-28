@@ -41,6 +41,17 @@ export const fishSelect = Prisma.sql`
     fi.name,
     fi.image_url AS "imageUrl",
     fi.selling_price AS "sellingPrice",
+    spl.name AS "seaPlaceName"
+  FROM fishs fi
+  LEFT JOIN sea_places spl ON spl.id = fi.sea_place_id
+`;
+
+export const fishDetails = Prisma.sql`
+  SELECT
+    fi.id,
+    fi.name,
+    fi.image_url AS "imageUrl",
+    fi.selling_price AS "sellingPrice",
     spl.name AS "seaPlaceName",
     jsonb_build_object(
       'north', ${monthRangesByHemisphere('NORTH')},

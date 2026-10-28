@@ -8,6 +8,10 @@ import { InsectModule } from './insect/insect.module';
 import { FishModule } from './fish/fish.module';
 import { SeaCreatureModule } from './sea-creature/sea-creature.module';
 import { FurnitureModule } from './furniture/furniture.module';
+import { SeaPlaceModule } from './sea-place/sea-place.module';
+import { InsectLocationModule } from './insect-location/insect-location.module';
+import { PersonalityModule } from './personality/personality.module';
+import { SpeciesModule } from './species/species.module';
 
 @Module({
   imports: [
@@ -20,6 +24,10 @@ import { FurnitureModule } from './furniture/furniture.module';
     FishModule,
     SeaCreatureModule,
     FurnitureModule,
+    SeaPlaceModule,
+    InsectLocationModule,
+    PersonalityModule,
+    SpeciesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -11,8 +11,10 @@ export class InsectController {
     @Query('size') size?: string,
     @Query('sort') sort?: string | string[],
     @Query('q') q?: string,
+    @Query('weather') weather?: string,
+    @Query('insect_location_id') insectLocationId?: string,
   ) {
-    return this.insectService.findAll(page, size, sort, q);
+    return this.insectService.findAll(page, size, sort, q, weather, insectLocationId);
   }
 
   @Get(':id')

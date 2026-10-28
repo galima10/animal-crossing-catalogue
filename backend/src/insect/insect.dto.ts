@@ -1,16 +1,19 @@
+import { Weather, Month } from "@prisma/client";
+
 export class InsectResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
   insectLocationName!: string;
+  weather!: Weather;
   monthRangesApparition!: {
     north: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
     south: {
-      month: string;
+      month: Month;
       ranges: { startHour: string; endHour: string }[];
       isAllDay: boolean;
     }[];
