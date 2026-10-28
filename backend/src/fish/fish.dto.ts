@@ -5,7 +5,7 @@ export class FishResponseDto {
   imageUrl!: string;
   sellingPrice!: number;
   seaPlaceName!: string;
-  monthRangesApparition!: {
+  monthRangesApparition?: {
     north: {
       month: Month;
       ranges: { startHour: string; endHour: string }[];

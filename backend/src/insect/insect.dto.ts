@@ -6,7 +6,7 @@ export class InsectResponseDto {
   sellingPrice!: number;
   insectLocationName!: string;
   weather!: Weather;
-  monthRangesApparition!: {
+  monthRangesApparition?: {
     north: {
       month: Month;
       ranges: { startHour: string; endHour: string }[];
