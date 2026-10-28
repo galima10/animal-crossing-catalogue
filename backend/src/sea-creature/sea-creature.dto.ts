@@ -4,7 +4,7 @@ export class SeaCreatureResponseDto {
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
-  monthRangesApparition!: {
+  monthRangesApparition?: {
     north: {
       month: Month;
       ranges: { startHour: string; endHour: string }[];
