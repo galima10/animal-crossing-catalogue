@@ -43,7 +43,6 @@ export const insectSelect = Prisma.sql`
     i.name,
     i.image_url AS "imageUrl",
     i.selling_price AS "sellingPrice",
-    i.monthly_avalaibility AS "monthlyAvalaibility",
     il.name AS "insectLocationName",
     jsonb_build_object(
       'north', ${monthRangesByHemisphere('NORTH')},
