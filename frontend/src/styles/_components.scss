@@ -1,0 +1,61 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+@use "@/styles/abstracts/functions" as *;
+
+header {
+  display: flex;
+  // background-color: red;
+  padding: 1.5rem $padding-global 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  gap: 1rem;
+  width: 100%;
+  ul {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.header-tab-button {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  background-color: $btn-bg-color;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 2rem;
+    height: 2rem;
+    fill: $btn-text-color;
+    transition: fill 0.2s;
+  }
+  &:hover {
+    svg {
+      fill: $btn-color-hover;
+    }
+  }
+  &.active {
+    svg {
+      fill: $btn-color-orange;
+    }
+    .header-tab-button-label {
+      opacity: 1;
+    }
+  }
+}
+
+.header-tab-button-label {
+  background-color: $btn-color-orange;
+  color: $btn-bg-color;
+  pointer-events: none;
+  position: absolute;
+  top: -1rem;
+  padding: .25rem .5rem;
+  opacity: 0;
+  border-radius: .5rem;
+  white-space: nowrap;
+}

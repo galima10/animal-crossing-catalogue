@@ -1,23 +1,28 @@
 import TabButton from "@/components/atoms/TabButton";
+import { TAB_PATHS } from "@/constants/navigationPath";
+import { useLocation } from "react-router-dom";
 
 export default function Header() {
   return (
     <header>
       <ul>
         <li>
-          <TabButton />
+          <TabButton name="all" path={TAB_PATHS.all} />
         </li>
         <li>
-          <TabButton />
+          <TabButton name="villager" path={TAB_PATHS.villagers} />
         </li>
         <li>
-          <TabButton />
+          <TabButton name="furniture" path={TAB_PATHS.furnitures} />
         </li>
         <li>
-          <TabButton />
+          <TabButton name="insect" path={TAB_PATHS.insects} />
         </li>
         <li>
-          <TabButton />
+          <TabButton name="fish" path={TAB_PATHS.fishs} />
+        </li>
+        <li>
+          <TabButton name="seaCreature" path={TAB_PATHS.seaCreatures} />
         </li>
       </ul>
     </header>
