@@ -12,6 +12,7 @@ import { SeaPlaceModule } from './sea-place/sea-place.module';
 import { InsectLocationModule } from './insect-location/insect-location.module';
 import { PersonalityModule } from './personality/personality.module';
 import { SpeciesModule } from './species/species.module';
+import { AllModule } from './all/all.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SpeciesModule } from './species/species.module';
     InsectLocationModule,
     PersonalityModule,
     SpeciesModule,
+    AllModule,
   ],
   controllers: [AppController],
   providers: [AppService],
