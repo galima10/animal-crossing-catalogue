@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import EverythingPage from "./pages/EverythingPage";
 import VillagersPage from "./pages/villager/VillagersPage";
 import FurnituresPage from "./pages/furniture/FurnituresPage";
 import InsectsPage from "./pages/insect/InsectsPage";
@@ -16,6 +17,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/all-items" element={<EverythingPage />} />
+
         <Route path="/villagers" element={<VillagersPage />} />
         <Route path="/villagers/:id" element={<VillagerPage />} />
 
