@@ -12,9 +12,9 @@ const SearchSvg = React.lazy(() => import("@/components/svg/SearchSvg"));
 const FilterSvg = React.lazy(() => import("@/components/svg/FilterSvg"));
 const SortSvg = React.lazy(() => import("@/components/svg/SortSvg"));
 
+export type IconNames = keyof typeof icons;
 interface AppSVGProps {
-  color: string;
-  name: keyof typeof icons;
+  name: IconNames;
 }
 
 const icons = {
@@ -29,7 +29,7 @@ const icons = {
   sort: SortSvg,
 };
 
-export default function AppSVG({ name, color }: AppSVGProps) {
+export default function AppSVG({ name }: AppSVGProps) {
   const Comp = icons[name];
 
   if (!Comp) {
@@ -39,7 +39,7 @@ export default function AppSVG({ name, color }: AppSVGProps) {
 
   return (
     <Suspense fallback={<div>Chargement...</div>}>
-      <Comp color={color} />
+      <Comp />
     </Suspense>
   );
 }
