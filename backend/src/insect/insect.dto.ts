@@ -1,6 +1,7 @@
 import { Weather, Month } from "@prisma/client";
 
 export class InsectResponseDto {
+  id!: string;
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;

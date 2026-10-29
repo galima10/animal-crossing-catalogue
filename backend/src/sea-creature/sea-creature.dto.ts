@@ -1,6 +1,7 @@
 import { Month } from "@prisma/client";
 
 export class SeaCreatureResponseDto {
+  id!: string;
   name!: string;
   imageUrl!: string;
   sellingPrice!: number;
