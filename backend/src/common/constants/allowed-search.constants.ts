@@ -38,10 +38,6 @@ export const villagersSearchableColumns: SearchableColumn[] = [
     type: 'text',
   },
   {
-    column: 'vi.birthday',
-    type: 'text',
-  },
-  {
     column: 'vi.gender',
     type: 'enum',
   },
@@ -63,5 +59,36 @@ export const furnituresSearchableColumns: SearchableColumn[] = [
   {
     column: 'fu.category',
     type: 'enum',
+  },
+];
+
+export const allSearchableColumns: SearchableColumn[] = [
+  {
+    column: 'items."name"',
+    type: 'text',
+  },
+  {
+    column: 'items."gender"',
+    type: 'enum',
+  },
+  {
+    column: 'items."speciesName"',
+    type: 'text',
+  },
+  {
+    column: 'items."personalityName"',
+    type: 'text',
+  },
+  {
+    column: 'items."category"',
+    type: 'enum',
+  },
+  {
+    column: 'items."insectLocationName"',
+    type: 'text',
+  },
+  {
+    column: 'items."seaPlaceName"',
+    type: 'text',
   },
 ];
