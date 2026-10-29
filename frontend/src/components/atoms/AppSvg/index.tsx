@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 
+const AllSvg = React.lazy(() => import("@/components/svg/AllSvg"));
 const VillagerSvg = React.lazy(() => import("@/components/svg/VillagerSvg"));
 const FurnitureSvg = React.lazy(() => import("@/components/svg/FurnitureSvg"));
 const InsectSvg = React.lazy(() => import("@/components/svg/InsectSvg"));
@@ -17,6 +18,7 @@ interface AppSVGProps {
 }
 
 const icons = {
+  all: AllSvg,
   villager: VillagerSvg,
   furniture: FurnitureSvg,
   insect: InsectSvg,

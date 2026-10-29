@@ -1,6 +1,10 @@
-
-export default function SortSvg(){
-    return (
-        <svg></svg>
-    );
-};
+export default function SortSvg({ color }: { color: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none">
+      <path
+        fill={color}
+        d="M6.9 3.5a1.6 1.6 0 0 1 2.2 0l6.4 6.5a1.6 1.6 0 0 1 0 2.3 1.6 1.6 0 0 1-2.2 0L9.6 8.5v18.9q0 .6-.5 1.1a1.6 1.6 0 0 1-2.2 0q-.5-.5-.5-1.1V8.5l-3.7 3.8a1.6 1.6 0 0 1-2.2 0 1.6 1.6 0 0 1 0-2.3zm15.5 20V4.6q0-.6.5-1.1a1.6 1.6 0 0 1 2.2 0q.5.5.5 1.1v18.9l3.7-3.8a1.6 1.6 0 0 1 2.2 0 1.6 1.6 0 0 1 0 2.3l-6.4 6.5a1.6 1.6 0 0 1-2.2 0L16.5 22a1.6 1.6 0 0 1 0-2.3 1.6 1.6 0 0 1 2.2 0z"
+      />
+    </svg>
+  );
+}
