@@ -1,0 +1,10 @@
+export default function InsectSvg({ color }: { color: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none">
+      <path
+        fill={color}
+        d="M26.2 2.8c-5.9-.9-9.3 5-10.2 6.9-1-2-4.3-7.8-10.2-7-5.5.8-7 6.5-5 10q2.8 4.8 9.2 5.6c-5.3 1.8-7.5 6.1-3.9 9.4 4.2 3.7 8.6.6 9.9-4 1.3 4.6 5.7 7.7 9.9 4 3.6-3.3 1.4-7.6-3.9-9.4 4.4-.7 7.3-2.3 9.1-5.6 2-3.5.6-9.2-4.9-10"
+      />
+    </svg>
+  );
+}
