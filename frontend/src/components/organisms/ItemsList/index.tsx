@@ -1,6 +1,7 @@
 import { getAllItems } from "@/services/getAllItems";
 import { useState, useEffect } from "react";
 import type { ApiResponseType, QueryParamsType } from "@/types/ApiResponseType";
+import ItemCard from "@/components/molecules/ItemCard";
 
 interface ItemsListProps {
   path: string;
@@ -31,9 +32,11 @@ export default function ItemsList({ path, params }: ItemsListProps) {
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
   return (
-    <ul>
+    <ul className="items-list">
       {items.map((item) => (
-        <li>Test</li>
+        <li>
+          <ItemCard item={item} />
+        </li>
       ))}
     </ul>
   );
