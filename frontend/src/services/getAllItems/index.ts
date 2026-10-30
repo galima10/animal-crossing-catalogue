@@ -1,14 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
+import type { QueryParamsType, ApiResponseType } from "@/types/ApiResponseType";
 
-export async function getAllItems(
-  apiPath: string,
-  params?: {
-    page?: number;
-    size?: number;
-    sort?: string[] | string;
-    q?: string;
-  },
-) {
+export async function getAllItems(apiPath: string, params?: QueryParamsType) {
   const apiUrl = new URL(`${API_URL}${apiPath}`);
 
   if (params) {
@@ -27,5 +20,6 @@ export async function getAllItems(
     method: "GET",
   });
   if (!res.ok) throw new Error("Error fetch");
-  return await res.json();
+  const data = await res.json();
+  return data as ApiResponseType;
 }
