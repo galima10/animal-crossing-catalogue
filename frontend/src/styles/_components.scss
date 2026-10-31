@@ -71,13 +71,14 @@ header {
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: auto;
   gap: 1rem;
-  padding: 0 1rem 2rem;
-  height: calc(100vh - 14rem);
+  padding: 0.5rem 1rem 2rem;
+  height: calc(100vh - 13rem);
   overflow-y: auto;
   align-content: start;
 }
 
 .items-card {
+  position: relative;
   aspect-ratio: 4 / 6;
   display: flex;
   flex-direction: column;
@@ -87,9 +88,36 @@ header {
   border: 0.4rem solid #f3efdf;
   border-radius: 0.75rem;
   background: url(@/assets/images/item_background.webp) center/cover;
+  transition: transform 0.2s;
   img {
     aspect-ratio: 1 / 1;
     width: 100%;
+    pointer-events: none;
+  }
+  &:hover {
+    transform: scale(1.075);
+    .items-card-infos {
+      opacity: 1;
+    }
+  }
+}
+
+.items-card-infos {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(243, 239, 223, 0.3));
+  pointer-events: none;
+  border-radius: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 0.5rem;
+  p {
+    bottom: 0.25rem;
+    line-height: type-scale(-1, $desktop-font-ratio);
+    font-size: type-scale(-1.5, $desktop-font-ratio);
+    text-align: center;
+    font-weight: $bold;
   }
 }
 
