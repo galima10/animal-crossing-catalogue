@@ -99,16 +99,31 @@ export const weatherUi = {
 }
 
 export const monthsArray = [
-  "Jan.",
-  "Feb.",
-  "Mar.",
-  "Apr.",
-  "May.",
-  "Jun.",
-  "Jul.",
-  "Aug.",
-  "Sep.",
-  "Oct.",
-  "Nov.",
-  "Dec.",
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
 ]
+
+export const monthsCompleted = {
+  jan: "january",
+  feb: "february",
+  mar: "march",
+  apr: "april",
+  may: "may",
+  jun: "june",
+  jul: "july",
+  aug: "august",
+  sep: "september",
+  oct: "october",
+  nov: "november",
+  dec: "december",
+}

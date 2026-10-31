@@ -4,6 +4,8 @@ import AppSVG from "@/components/atoms/AppSvg";
 import { toCapitalize } from "@/utils/toCapitalize";
 import { useState } from "react";
 import ModalInfos from "@/components/molecules/ModalInfos";
+import { monthsArray } from "@/constants/mapNames";
+import { monthsCompleted } from "@/constants/mapNames";
 
 export default function ModalScreen() {
   const dispatch = useAppDispatch();
@@ -13,6 +15,13 @@ export default function ModalScreen() {
     name: string;
   } | null>(null);
   const [tab, setTab] = useState<"infos" | "avalaibilities">("infos");
+  const [selectedMonth, setSelectedMonth] = useState<{
+    hemisphere: "north" | "south";
+    month: string;
+    ranges: { startHour: string; endHour: string }[];
+    isAllDay: boolean;
+  }>(null);
+
   return (
     <div className={`modal-screen ${selected ? "active" : null}`}>
       <div className="modal-card">
@@ -40,7 +49,7 @@ export default function ModalScreen() {
         </div>
         <div className="modal-title">
           <div className="modal-type">
-            <AppSVG name={selected?.type} />
+            {selected?.type && <AppSVG name={selected?.type} />}
           </div>
           {selected?.item?.gender && (
             <div className="modal-villager-gender-icon">
@@ -60,8 +69,122 @@ export default function ModalScreen() {
             setSelectdVariation={setSelectdVariation}
             setTab={setTab}
           />
-        ) : null}
+        ) : (
+          <div className="modal-avalaibilities">
+            <ul>
+              {monthsArray.map((month, index) => (
+                <li key={index}>
+                  <p className="modal-month">
+                    {toCapitalize(month)}
+                    {"."}
+                  </p>
+                  <div className="hemisphere-buttons">
+                    <button
+                      className={
+                        selected?.item.monthRangesApparition?.north.find(
+                          (currentMonth) =>
+                            currentMonth.month === month.toUpperCase(),
+                        ).ranges.length === 0 &&
+                        !selected?.item.monthRangesApparition?.north.find(
+                          (currentMonth) =>
+                            currentMonth.month === month.toUpperCase(),
+                        ).isAllDay
+                          ? "disabled"
+                          : null
+                      }
+                      onClick={() =>
+                        setSelectedMonth({
+                          hemisphere: "north",
+                          month: month,
+                          ranges:
+                            selected?.item.monthRangesApparition?.north.find(
+                              (currentMonth) =>
+                                currentMonth.month === month.toUpperCase(),
+                            ).ranges,
+                          isAllDay:
+                            selected?.item.monthRangesApparition?.north.find(
+                              (currentMonth) =>
+                                currentMonth.month === month.toUpperCase(),
+                            ).isAllDay,
+                        })
+                      }
+                    >
+                      NH
+                    </button>
+                    <div />
+                    <button
+                      className={
+                        selected?.item.monthRangesApparition?.south.find(
+                          (currentMonth) =>
+                            currentMonth.month === month.toUpperCase(),
+                        ).ranges.length === 0 &&
+                        !selected?.item.monthRangesApparition?.south.find(
+                          (currentMonth) =>
+                            currentMonth.month === month.toUpperCase(),
+                        ).isAllDay
+                          ? "disabled"
+                          : null
+                      }
+                      onClick={() =>
+                        setSelectedMonth({
+                          hemisphere: "south",
+                          month: month,
+                          ranges:
+                            selected?.item.monthRangesApparition?.south.find(
+                              (currentMonth) =>
+                                currentMonth.month === month.toUpperCase(),
+                            ).ranges,
+                          isAllDay:
+                            selected?.item.monthRangesApparition?.south.find(
+                              (currentMonth) =>
+                                currentMonth.month === month.toUpperCase(),
+                            ).isAllDay,
+                        })
+                      }
+                    >
+                      SH
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+      {selectedMonth && (
+        <div className="modal-ranges">
+          <div className="modal-ranges-content">
+            <button
+              className="modal-ranges-close-btn"
+              onClick={() => {
+                setSelectedMonth(null);
+              }}
+            >
+              <AppSVG name="close" />
+            </button>
+            <p className="modal-ranges-title">
+              Hour ranges for{" "}
+              <br />
+              {selectedMonth.hemisphere == "north" ? "NH" : "SH"}{" "}
+              {toCapitalize(monthsCompleted[selectedMonth.month])}
+            </p>
+            {selectedMonth &&
+              (selectedMonth.isAllDay ? (
+                <p>All day</p>
+              ) : selectedMonth.ranges.length > 0 ? (
+                <ul>
+                  {selectedMonth.ranges.map((range, index) => (
+                    <li key={index}>
+                      <p>
+                        {range.startHour} – {range.endHour}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              ) : null)}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
