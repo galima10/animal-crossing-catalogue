@@ -67,6 +67,7 @@ export function FilterModule({
 }) {
   const [showOptions, setShowOptions] = useState(false);
   const options = useAppSelector((state) => state.item.filterOptions);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="header-filter">
@@ -90,7 +91,10 @@ export function FilterModule({
         </span>
         <span
           className="header-filter-clear"
-          onClick={() => setFilterValue(null)}
+          onClick={() => {
+            setFilterValue(null);
+            dispatch(setFilter(null));
+          }}
         >
           <small>&#215;</small>
         </span>
