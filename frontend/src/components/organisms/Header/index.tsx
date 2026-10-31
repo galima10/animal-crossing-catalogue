@@ -98,59 +98,63 @@ export default function Header() {
             />
           </li>
         </ul>
-        <div className="header-search-filter-container">
-          {pathname !== "all-items" && pathname !== "sea-creatures" && (
-            <FilterButtonModule
-              path={allowedFilter[pathname]}
-              setFilterValue={setFilterValue}
-            />
-          )}
-
-          <div className="header-search-bar">
-            <input
-              type="text"
-              placeholder=""
-              onChange={handleOnSearchTerm}
-              value={searchValue}
-            />
-            <div />
-            <AppSVG name="search" />
-          </div>
-        </div>
-      </div>
-      <div className="header-sort-filter">
-        <NavIndicator />
-        <SizeModule />
-        {pathname !== "all-items" && (
-          <>
-            {filterValue && (
-              <FilterModule
+        {pathname !== "" && (
+          <div className="header-search-filter-container">
+            {pathname !== "all-items" && pathname !== "sea-creatures" && (
+              <FilterButtonModule
+                path={allowedFilter[pathname]}
                 setFilterValue={setFilterValue}
-                filterValue={filterValue}
               />
             )}
 
-            <div className="header-sorter">
-              <p>Sorter by</p>
-              <ul>
-                {allowedSort[pathname]?.map(
-                  (
-                    column: { label: string; sorterName: string },
-                    index: number,
-                  ) => (
-                    <li key={index}>
-                      <SortButton
-                        label={column?.label}
-                        sorterName={column?.sorterName}
-                      />
-                    </li>
-                  ),
-                )}
-              </ul>
+            <div className="header-search-bar">
+              <input
+                type="text"
+                placeholder=""
+                onChange={handleOnSearchTerm}
+                value={searchValue}
+              />
+              <div />
+              <AppSVG name="search" />
             </div>
-          </>
+          </div>
         )}
       </div>
+      {pathname !== "" && (
+        <div className="header-sort-filter">
+          <NavIndicator />
+          <SizeModule />
+          {pathname !== "all-items" && (
+            <>
+              {filterValue && (
+                <FilterModule
+                  setFilterValue={setFilterValue}
+                  filterValue={filterValue}
+                />
+              )}
+
+              <div className="header-sorter">
+                <p>Sorter by</p>
+                <ul>
+                  {allowedSort[pathname]?.map(
+                    (
+                      column: { label: string; sorterName: string },
+                      index: number,
+                    ) => (
+                      <li key={index}>
+                        <SortButton
+                          label={column?.label}
+                          sorterName={column?.sorterName}
+                        />
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 }

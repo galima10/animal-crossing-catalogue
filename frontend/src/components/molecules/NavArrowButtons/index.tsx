@@ -17,10 +17,10 @@ export default function NavArrowButtons() {
   return (
     <ul className="paging-arrow-btns">
       <li>
-        <button onClick={handlePrevPage} className="arrow-left-btn">«</button>
+        <button onClick={handlePrevPage} className={!pagination?.hasPreviousPage && "disabled"}>«</button>
       </li>
       <li>
-        <button onClick={handleNextPage} className="arrow-right-btn">»</button>
+        <button onClick={handleNextPage} className={!pagination?.hasNextPage && "disabled"}>»</button>
       </li>
     </ul>
   );

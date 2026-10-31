@@ -338,6 +338,10 @@ header {
       background-color: $btn-color-orange;
       color: $btn-bg-color;
     }
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
   }
 }
 
