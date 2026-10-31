@@ -97,3 +97,18 @@ export const weatherUi = {
   any_weather: "any weather",
   rain_only: "rain only"
 }
+
+export const monthsArray = [
+  "Jan.",
+  "Feb.",
+  "Mar.",
+  "Apr.",
+  "May.",
+  "Jun.",
+  "Jul.",
+  "Aug.",
+  "Sep.",
+  "Oct.",
+  "Nov.",
+  "Dec.",
+]

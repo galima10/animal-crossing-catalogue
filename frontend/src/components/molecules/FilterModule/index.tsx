@@ -1,4 +1,4 @@
-import { useState, type Dispatch, type SetStateAction, useEffect } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { toCapitalize } from "@/utils/toCapitalize";
 import type { QueryParamsType } from "@/types/ApiResponseType";
 import { filterTableMap, filterColumnsEnumMap } from "@/constants/mapNames";
@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getAllItems } from "@/services/getAllItems";
 import { setOptions } from "@/stores/features/itemsSlice";
 import { setFilter } from "@/stores/features/headerSlice";
+import { maxStrLength } from "@/utils/maxStrLength";
 
 export function FilterButtonModule({
   path,
@@ -81,10 +82,12 @@ export function FilterModule({
         <span className="header-filter-value">
           <small>
             {filterValue?.value
-              ? toCapitalize(
-                  options?.find(
-                    (option) => option.filterValue === filterValue?.value,
-                  )?.name,
+              ? maxStrLength(
+                  toCapitalize(
+                    options?.find(
+                      (option) => option.filterValue === filterValue?.value,
+                    )?.name,
+                  ),
                 )
               : "NA"}
           </small>
