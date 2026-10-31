@@ -9,6 +9,7 @@ import {
   setSearchTerm,
   setFilter,
   clearSort,
+  setPage
 } from "@/stores/features/headerSlice";
 import type { ChangeEvent } from "react";
 import { useState, useEffect } from "react";
@@ -19,7 +20,6 @@ import {
   FilterModule,
 } from "@/components/molecules/FilterModule";
 import type { QueryParamsType } from "@/types/ApiResponseType";
-import { API_PATH } from "@/constants/apiPath";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
@@ -40,15 +40,16 @@ export default function Header() {
     dispatch(setSearchTerm(null));
     dispatch(setFilter(null));
     dispatch(clearSort());
+    dispatch(setPage(null));
     setFilterValue(null);
   }
 
   useEffect(() => {
-    // console.log(filterValue)
     if (filterValue?.column && filterValue?.value) {
       dispatch(setFilter(filterValue));
     }
   }, [filterValue]);
+
   return (
     <header>
       <div className="header-action-btn">
