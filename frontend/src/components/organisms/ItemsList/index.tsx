@@ -2,6 +2,9 @@ import { getAllItems } from "@/services/getAllItems";
 import { useState, useEffect } from "react";
 import type { ApiResponseType, QueryParamsType } from "@/types/ApiResponseType";
 import ItemCard from "@/components/molecules/ItemCard";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setItems } from "@/stores/features/itemsSlice";
+import { useFetchItems } from "@/hooks/useFetchItems";
 
 interface ItemsListProps {
   path: string;
@@ -9,32 +12,13 @@ interface ItemsListProps {
 }
 
 export default function ItemsList({ path, params }: ItemsListProps) {
-  const [items, setItems] = useState<ApiResponseType["data"]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const items = useAppSelector((state) => state.item.items);
+  useFetchItems(path, params);
 
-  useEffect(() => {
-    async function fetchVillagers() {
-      try {
-        const response = await getAllItems(path, params);
-
-        setItems(response.data);
-      } catch (err) {
-        setError("Impossible de récupérer les villagers.");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchVillagers();
-  }, []);
-
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
   return (
     <ul className="items-list">
-      {items.map((item) => (
-        <li>
+      {items?.data?.map((item, index) => (
+        <li key={index}>
           <ItemCard item={item} />
         </li>
       ))}

@@ -68,12 +68,16 @@ header {
 
 .items-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto; 
   gap: 1rem;
+  padding: 0 1rem 2rem;
+  height: calc(100vh - 10rem);
+  overflow-y: auto;
+  align-content: start;
 }
 
 .items-card {
-  background-color: red;
   aspect-ratio: 4 / 6;
   display: flex;
   flex-direction: column;
@@ -141,6 +145,9 @@ header {
 .header-sort-filter {
   display: flex;
   padding: 1rem 0;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }
 
 .header-sorter {
@@ -150,17 +157,111 @@ header {
   ul {
     display: flex;
   }
+  p {
+    font-weight: $bold;
+  }
   button {
     background-color: $btn-bg-color;
-    padding: 0.4rem 0.9rem;
+    padding: 0.35rem 0.75rem;
     border-radius: 10rem;
     transition: background-color 0.2s;
+    small {
+      font-weight: $bold;
+    }
     &:hover {
       background-color: $bar-light-color;
     }
     &.active {
       background-color: $btn-color-orange;
-      color: $btn-bg-color;
+      small {
+        color: $btn-bg-color;
+      }
     }
   }
+}
+
+.header-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  p {
+    font-weight: $bold;
+  }
+  button {
+    background-color: $btn-bg-color;
+    padding: 0.35rem 0.75rem;
+    border-radius: 10rem;
+    transition: background-color 0.2s;
+    display: flex;
+    gap: 0.25rem;
+    small {
+      font-weight: $bold;
+    }
+    span {
+      display: block;
+    }
+    &:hover {
+      background-color: $bar-light-color;
+    }
+    &.active {
+      background-color: $btn-color-orange;
+      small {
+        color: $btn-bg-color;
+      }
+    }
+  }
+}
+
+.header-filter-clear {
+  margin-left: 0.25rem;
+  padding: 0.25rem;
+  line-height: type-scale(-3, $desktop-font-ratio);
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: $btn-text-color;
+  }
+}
+
+.header-size {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  p {
+    font-weight: $bold;
+  }
+  button {
+    background-color: $btn-bg-color;
+    padding: 0.35rem 0.75rem;
+    border-radius: 10rem;
+    transition: background-color 0.2s;
+    small {
+      font-weight: $bold;
+    }
+    &:hover {
+      background-color: $bar-light-color;
+    }
+    &.active {
+      background-color: $btn-color-orange;
+      small {
+        color: $btn-bg-color;
+      }
+    }
+  }
+}
+
+.header-size-options {
+  position: absolute;
+  background-color: red;
+  top: 2.5rem;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  width: 8rem;
+  button {
+    width: 100%;
+    border-radius: 0;
+  }
+  right: 0;
 }

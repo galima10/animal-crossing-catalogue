@@ -7,7 +7,7 @@ import InsectsPage from "./pages/InsectsPage";
 import FishsPage from "./pages/FishsPage";
 import SeaCreaturesPage from "./pages/SeaCreaturesPage";
 
-import Header from "./components/molecules/Header";
+import Header from "./components/organisms/Header";
 
 import { TAB_PATHS } from "./constants/navigationPath";
 

@@ -1,8 +1,10 @@
+import { API_PATH } from "@/constants/apiPath";
+import ItemsList from "@/components/organisms/ItemsList";
 
 export default function FurnituresPage(){
     return (
         <main>
-            <h1>All Furnitures</h1>
+            <ItemsList path={API_PATH.furniture} params={{ page: 1 }} />
         </main>
     );
 };

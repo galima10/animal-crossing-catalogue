@@ -6,9 +6,10 @@ import { tabButtonLabels } from "@/constants/mapNames";
 interface TabButtonProps {
   name: IconNames;
   path: string;
+  onClick: () => void;
 }
 
-export default function TabButton({ name, path }: TabButtonProps) {
+export default function TabButton({ name, path, onClick }: TabButtonProps) {
   const navigate = useNavigate();
   let location = useLocation();
   return (
@@ -16,6 +17,7 @@ export default function TabButton({ name, path }: TabButtonProps) {
       id={"tab-btn" + name}
       onClick={() => {
         navigate(path);
+        onClick();
       }}
       className={`header-tab-button ${location.pathname === path ? "active" : null}`}
     >

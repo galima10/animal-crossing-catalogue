@@ -5,7 +5,7 @@ export function parseSorter(
   allowedSorts: Record<string, string>,
   sort?: string | string[],
 ) {
-  const sortFields = sort ? (Array.isArray(sort) ? sort : [sort]) : ['id:asc'];
+  const sortFields = sort ? (Array.isArray(sort) ? sort : [sort]) : ['name:asc'];
 
   const orderBy = sortFields.map((item) => {
     const [field, rawDirection, ...extra] = item.split(':');

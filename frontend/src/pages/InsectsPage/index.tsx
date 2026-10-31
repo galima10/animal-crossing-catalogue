@@ -1,8 +1,10 @@
+import { API_PATH } from "@/constants/apiPath";
+import ItemsList from "@/components/organisms/ItemsList";
 
 export default function InsectsPage(){
     return (
         <main>
-            <h1>All Insects</h1>
+            <ItemsList path={API_PATH.insect} params={{ page: 1 }} />
         </main>
     );
 };
