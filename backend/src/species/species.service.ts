@@ -8,8 +8,9 @@ export class SpeciesService {
   async findAll() {
     return await this.prisma.$queryRaw`
       SELECT
-        *
-      FROM species
+        sps.id AS "filterValue",
+        sps.name
+      FROM species sps
       ORDER BY name
     `;
   }

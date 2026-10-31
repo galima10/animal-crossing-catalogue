@@ -83,13 +83,9 @@ export const headerSlice = createSlice({
         value: string;
       }>,
     ) => {
-      if (
-        action.payload?.column === "" ||
-        action.payload?.value === "" ||
-        !action.payload
-      )
-        state.filter = null;
+      if (!action.payload) state.filter = null;
       else state.filter = action.payload;
+      console.log(state.filter)
     },
     setSize: (state, action: PayloadAction<string | null>) => {
       if (action.payload === "" || !action.payload) state.size = null;

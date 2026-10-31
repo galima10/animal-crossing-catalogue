@@ -69,7 +69,7 @@ header {
 .items-list {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: auto; 
+  grid-template-rows: auto;
   gap: 1rem;
   padding: 0 1rem 2rem;
   height: calc(100vh - 10rem);
@@ -133,12 +133,15 @@ header {
 }
 
 .header-filter-btn {
-  background-color: $btn-bg-color;
-  padding: 0.6rem 1.25rem;
-  border-radius: 10rem;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: $bar-light-color;
+  position: relative;
+  button {
+    background-color: $btn-bg-color;
+    padding: 0.6rem 1.25rem;
+    border-radius: 10rem;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: $bar-light-color;
+    }
   }
 }
 
@@ -184,6 +187,8 @@ header {
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: absolute;
+  right: calc($padding-global + 13rem);
   p {
     font-weight: $bold;
   }
@@ -209,6 +214,47 @@ header {
         color: $btn-bg-color;
       }
     }
+  }
+}
+
+.header-filter-options {
+  position: absolute;
+  flex-direction: column;
+  gap: 0;
+  z-index: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+  width: 8rem;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  button {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+.header-filter-sub-options {
+  position: absolute;
+  max-width: 15rem;
+  min-width: 8rem;
+  top: 2.5rem;
+  right: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  max-height: 20rem;
+  ul {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    max-height: 20rem;
+    overflow-y: auto;
+  }
+  button {
+    border-radius: 0;
+    width: 100%;
+    text-align: start;
+    // white-space: nowrap;
   }
 }
 
@@ -259,6 +305,7 @@ header {
   border-radius: 1rem;
   overflow: hidden;
   width: 8rem;
+  z-index: 1;
   button {
     width: 100%;
     border-radius: 0;

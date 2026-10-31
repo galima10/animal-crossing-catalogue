@@ -33,4 +33,8 @@ export interface QueryParamsType {
   size?: number;
   sort?: string[] | string;
   q?: string;
+  filter?: {
+    column: string;
+    value: string;
+  };
 }

@@ -8,8 +8,9 @@ export class PersonalityService {
   async findAll() {
     return await this.prisma.$queryRaw`
       SELECT
-        *
-      FROM personalities
+        p.id AS "filterValue",
+        p.name
+      FROM personalities p
       ORDER BY name
     `;
   }

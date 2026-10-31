@@ -3,20 +3,29 @@ import { TAB_PATHS } from "@/constants/navigationPath";
 import AppSVG from "@/components/atoms/AppSvg";
 import { useLocation } from "react-router-dom";
 import { allowedSort } from "@/constants/allowedSortColumns";
+import { allowedFilter } from "@/constants/allowedFilterColumns";
 import { useAppDispatch } from "@/hooks/redux";
 import {
   setSearchTerm,
   setFilter,
-  setSize,
   clearSort,
 } from "@/stores/features/headerSlice";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SortButton from "@/components/atoms/SortButton";
 import SizeModule from "@/components/molecules/SizeModule";
+import {
+  FilterButtonModule,
+  FilterModule,
+} from "@/components/molecules/FilterModule";
+import type { QueryParamsType } from "@/types/ApiResponseType";
+import { API_PATH } from "@/constants/apiPath";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
+  const [filterValue, setFilterValue] = useState<
+    QueryParamsType["filter"] | null
+  >(null);
   const pathname = useLocation().pathname.replace(/^\//, "");
   const dispatch = useAppDispatch();
 
@@ -31,7 +40,15 @@ export default function Header() {
     dispatch(setSearchTerm(null));
     dispatch(setFilter(null));
     dispatch(clearSort());
+    setFilterValue(null);
   }
+
+  useEffect(() => {
+    // console.log(filterValue)
+    if (filterValue?.column && filterValue?.value) {
+      dispatch(setFilter(filterValue));
+    }
+  }, [filterValue]);
   return (
     <header>
       <div className="header-action-btn">
@@ -80,8 +97,11 @@ export default function Header() {
           </li>
         </ul>
         <div className="header-search-filter-container">
-          {pathname !== "all-items" && (
-            <button className="header-filter-btn">Filter</button>
+          {pathname !== "all-items" && pathname !== "sea-creatures" && (
+            <FilterButtonModule
+              path={allowedFilter[pathname]}
+              setFilterValue={setFilterValue}
+            />
           )}
 
           <div className="header-search-bar">
@@ -100,20 +120,12 @@ export default function Header() {
         <SizeModule />
         {pathname !== "all-items" && (
           <>
-            <div className="header-filter">
-              <p>Filtered by</p>
-              <button>
-                <span className="header-filter-label">
-                  <small>Species:</small>
-                </span>
-                <span className="header-filter-value">
-                  <small>Dog</small>
-                </span>
-                <span className="header-filter-clear">
-                  <small>&#215;</small>
-                </span>
-              </button>
-            </div>
+            {filterValue && (
+              <FilterModule
+                setFilterValue={setFilterValue}
+                filterValue={filterValue}
+              />
+            )}
 
             <div className="header-sorter">
               <p>Sorter by</p>

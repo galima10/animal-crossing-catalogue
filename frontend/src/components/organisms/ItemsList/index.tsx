@@ -1,4 +1,4 @@
-import { getAllItems } from "@/services/getAllItems";
+import { getAllItemsPaged } from "@/services/getAllItemsPaged";
 import { useState, useEffect } from "react";
 import type { ApiResponseType, QueryParamsType } from "@/types/ApiResponseType";
 import ItemCard from "@/components/molecules/ItemCard";
