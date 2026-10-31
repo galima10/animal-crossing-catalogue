@@ -1,7 +1,7 @@
 import TabButton from "@/components/atoms/TabButton";
 import { TAB_PATHS } from "@/constants/navigationPath";
 import AppSVG from "@/components/atoms/AppSvg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { allowedSort } from "@/constants/allowedSortColumns";
 import { allowedFilter } from "@/constants/allowedFilterColumns";
 import { useAppDispatch } from "@/hooks/redux";
@@ -23,6 +23,7 @@ import type { QueryParamsType } from "@/types/ApiResponseType";
 import NavIndicator from "@/components/molecules/NavIndicator";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState<
     QueryParamsType["filter"] | null
@@ -54,6 +55,9 @@ export default function Header() {
   return (
     <header>
       <div className="header-action-btn">
+        <button className="home-btn" onClick={() => navigate("/")}>
+          <AppSVG name="home" />
+        </button>
         <ul>
           <li>
             <TabButton

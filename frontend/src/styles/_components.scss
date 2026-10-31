@@ -804,3 +804,47 @@ header {
   border-bottom-style: dashed;
   margin-bottom: 2rem;
 }
+
+.main-title {
+  // background-color: aqua;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    object-fit: contain;
+    width: 60%;
+  }
+}
+
+.main-subtitle {
+  font-size: type-scale(6, $desktop-font-ratio);
+  font-weight: $bold;
+  color: $bar-bg-color;
+  text-shadow: -0.075rem 0.075rem 0.5rem rgba(0, 0, 0, 0.273);
+}
+
+.home-btn {
+  background-color: $btn-bg-color;
+  position: absolute;
+  left: 5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  svg {
+    width: 55%;
+    height: 55%;
+    fill: $btn-text-color;
+    transition: fill 0.2s;
+  }
+  &:hover {
+    background-color: $btn-color-orange;
+    svg {
+      fill: $btn-bg-color;
+    }
+  }
+}

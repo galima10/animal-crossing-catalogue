@@ -17,6 +17,7 @@ const BirthdaySvg = React.lazy(() => import("@/components/svg/BirthdaySvg"));
 const MaleSvg = React.lazy(() => import("@/components/svg/MaleSvg"));
 const FemaleSvg = React.lazy(() => import("@/components/svg/FemaleSvg"));
 const ClochetteSvg = React.lazy(() => import("@/components/svg/ClochetteSvg"));
+const HomeSvg = React.lazy(() => import("@/components/svg/HomeSvg"));
 
 export type IconNames = keyof typeof icons;
 interface AppSVGProps {
@@ -39,6 +40,7 @@ const icons = {
   male: MaleSvg,
   female: FemaleSvg,
   clochette: ClochetteSvg,
+  home: HomeSvg,
 };
 
 export default function AppSVG({ name }: AppSVGProps) {
