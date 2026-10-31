@@ -9,7 +9,7 @@ import {
   setSearchTerm,
   setFilter,
   clearSort,
-  setPage
+  setPage,
 } from "@/stores/features/headerSlice";
 import type { ChangeEvent } from "react";
 import { useState, useEffect } from "react";
@@ -20,6 +20,7 @@ import {
   FilterModule,
 } from "@/components/molecules/FilterModule";
 import type { QueryParamsType } from "@/types/ApiResponseType";
+import NavIndicator from "@/components/molecules/NavIndicator";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
@@ -118,6 +119,7 @@ export default function Header() {
         </div>
       </div>
       <div className="header-sort-filter">
+        <NavIndicator />
         <SizeModule />
         {pathname !== "all-items" && (
           <>

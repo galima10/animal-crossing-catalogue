@@ -72,9 +72,9 @@ export const headerSlice = createSlice({
         state.sort = state.sort.filter((elem) => elem !== action.payload);
       }
     },
-    setPage: (state, action: PayloadAction<string | null>) => {
-      if (action.payload === "" || !action.payload) state.page = null;
-      else state.page = action.payload;
+    setPage: (state, action: PayloadAction<number | null>) => {
+      if (action.payload === 0 || !action.payload) state.page = null;
+      else state.page = String(action.payload);
     },
     setFilter: (
       state,
@@ -85,7 +85,6 @@ export const headerSlice = createSlice({
     ) => {
       if (!action.payload) state.filter = null;
       else state.filter = action.payload;
-      console.log(state.filter)
     },
     setSize: (state, action: PayloadAction<string | null>) => {
       if (action.payload === "" || !action.payload) state.size = null;

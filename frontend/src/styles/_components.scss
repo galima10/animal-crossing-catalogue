@@ -340,3 +340,20 @@ header {
     }
   }
 }
+
+.paging-indicator {
+  position: absolute;
+  right: 3rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  z-index: 1;
+  input {
+    width: 3.75rem;
+    padding: 0.5rem;
+    font-weight: $bold;
+    background-color: #fefff2;
+    border-radius: 0.75rem;
+  }
+  font-weight: $bold;
+}

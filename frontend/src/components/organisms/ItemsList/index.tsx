@@ -1,19 +1,14 @@
-import { getAllItemsPaged } from "@/services/getAllItemsPaged";
-import { useState, useEffect } from "react";
-import type { ApiResponseType, QueryParamsType } from "@/types/ApiResponseType";
 import ItemCard from "@/components/molecules/ItemCard";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setItems } from "@/stores/features/itemsSlice";
+import { useAppSelector } from "@/hooks/redux";
 import { useFetchItems } from "@/hooks/useFetchItems";
 
 interface ItemsListProps {
   path: string;
-  params?: QueryParamsType;
 }
 
-export default function ItemsList({ path, params }: ItemsListProps) {
+export default function ItemsList({ path }: ItemsListProps) {
   const items = useAppSelector((state) => state.item.items);
-  useFetchItems(path, params);
+  useFetchItems(path);
 
   return (
     <ul className="items-list">

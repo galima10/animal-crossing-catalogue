@@ -7,7 +7,7 @@ interface ItemCardProps {
 export default function ItemCard({ item }: ItemCardProps) {
   return (
     <button className="items-card">
-      <img src={item?.imageUrl} alt="" />
+      <img src={item?.imageUrl} alt="" loading="lazy" />
     </button>
   );
 }
