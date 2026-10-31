@@ -18,14 +18,49 @@ export interface ItemResponse {
   buyingPrice?: number | null;
   sellingPrice?: number | null;
   birthday?: string | null;
-  gender?: Gender | null;
+  gender?: string | null;
   speciesName?: string | null;
   personalityName?: string | null;
-  category?: Category | null;
+  category?: string | null;
   variationNames?: string | null;
   insectLocationName?: string | null;
-  weather?: Weather | null;
+  weather?: string | null;
   seaPlaceName?: string | null;
+}
+
+export interface OneItemResponse {
+  id: string;
+  name: string;
+  imageUrl: string;
+  buyingPrice?: number | null;
+  sellingPrice?: number | null;
+  birthday?: string | null;
+  gender?: string | null;
+  speciesName?: string | null;
+  personalityName?: string | null;
+  category?: string | null;
+  variationNames?: string | null;
+  insectLocationName?: string | null;
+  weather?: string | null;
+  seaPlaceName?: string | null;
+  variations?:
+    | {
+        variationName: string;
+        variationImageUrl: string;
+      }[]
+    | null;
+  monthRangesApparition?: {
+    north: {
+      month: string;
+      ranges: { startHour: string; endHour: string }[];
+      isAllDay: boolean;
+    }[];
+    south: {
+      month: string;
+      ranges: { startHour: string; endHour: string }[];
+      isAllDay: boolean;
+    }[];
+  } | null;
 }
 
 export interface QueryParamsType {

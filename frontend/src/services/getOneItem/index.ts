@@ -1,4 +1,4 @@
-import { API_PATH } from "@/constants/apiPath";
+import type { OneItemResponse } from "@/types/ApiResponseType";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getOneItem(apiPath: string, id: string) {
@@ -8,5 +8,6 @@ export async function getOneItem(apiPath: string, id: string) {
     method: "GET",
   });
   if (!res.ok) throw new Error("Error fetch");
-  return await res.json();
+  const data = await res.json();
+  return data.shift() as OneItemResponse;
 }

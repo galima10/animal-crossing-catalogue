@@ -249,7 +249,7 @@ header {
   position: absolute;
   flex-direction: column;
   gap: 0;
-  z-index: 1;
+  z-index: 2;
   border-radius: 1rem;
   overflow: hidden;
   width: 8rem;
@@ -271,6 +271,7 @@ header {
   border-radius: 1rem;
   overflow: hidden;
   max-height: 20rem;
+  z-index: 1;
   ul {
     flex-direction: column;
     gap: 0;
@@ -388,4 +389,276 @@ header {
     border-radius: 0.75rem;
   }
   font-weight: $bold;
+}
+
+.modal-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3));
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  padding: 0 calc($padding-global + 4rem);
+  display: flex;
+  align-items: center;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.modal-card {
+  border-radius: 2rem;
+  background-color: $bar-bg-color;
+  width: 100%;
+  height: 75%;
+  border: 0.5rem solid $card-border-color;
+  position: relative;
+  padding: 1.5rem;
+}
+
+.modal-close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+  width: 1.5rem;
+  aspect-ratio: 1 / 1;
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $btn-text-color;
+    transition: fill 0.2s;
+  }
+  &:hover {
+    svg {
+      fill: $btn-color-hover;
+    }
+  }
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 0.25rem solid $card-border-color;
+  border-bottom-style: dashed;
+  padding-bottom: 1rem;
+  p {
+    color: $modal-text;
+    font-weight: $bold;
+    font-size: type-scale(4, $desktop-font-ratio);
+    width: calc(100% - 5rem);
+  }
+}
+
+.modal-type {
+  flex-shrink: 0;
+  background-color: $modal-text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  svg {
+    width: 80%;
+    height: 80%;
+    fill: $btn-bg-color;
+  }
+}
+
+.modal-villager-gender-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $modal-text;
+  }
+}
+
+.modal-infos {
+  display: flex;
+
+  height: calc(100% - 4rem);
+}
+
+.modal-item-content {
+  flex-shrink: 0;
+  width: 70%;
+  height: 100%;
+  padding-right: 1rem;
+}
+
+.modal-img {
+  flex-shrink: 0;
+  width: 40%;
+  height: 100%;
+  padding: 2rem;
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.modal-villager-birthday {
+  width: 100%;
+  margin-top: 1rem;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(1, $desktop-font-ratio);
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+  svg {
+    fill: $modal-text;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+.modal-villager-species {
+  width: 100%;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(2, $desktop-font-ratio);
+  margin-top: 3rem;
+}
+
+.modal-villager-personality {
+  width: 100%;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(2, $desktop-font-ratio);
+  margin-top: 1.5rem;
+}
+
+.modal-furniture-category {
+  width: 100%;
+  margin-top: 1rem;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(1, $desktop-font-ratio);
+}
+
+.modal-furniture-prices {
+  margin-top: 3rem;
+  display: flex;
+  width: 100%;
+  div {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 50%;
+  }
+  p {
+    white-space: nowrap;
+    color: $modal-text;
+    font-weight: $bold;
+    font-size: type-scale(2, $desktop-font-ratio);
+  }
+  svg {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+.modal-furniture-variations {
+  width: 100%;
+  margin-top: 1.5rem;
+  p {
+    color: $modal-text;
+    font-weight: $bold;
+    font-size: type-scale(2, $desktop-font-ratio);
+  }
+  ul {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    button {
+      color: $btn-text-color;
+      background-color: $btn-bg-color;
+      font-size: type-scale(-1, $desktop-font-ratio);
+      padding: 0.5rem 1rem;
+      border-radius: 5rem;
+      transition: color 0.2s;
+      &:hover {
+        color: $btn-color-hover;
+      }
+      &.active {
+        color: $btn-bg-color;
+        background-color: $btn-color-orange;
+      }
+    }
+  }
+}
+
+.modal-animal-price {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  p {
+    white-space: nowrap;
+    color: $modal-text;
+    font-weight: $bold;
+    font-size: type-scale(2, $desktop-font-ratio);
+  }
+  svg {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+.modal-animal-weather {
+  margin-top: 1.5rem;
+  white-space: nowrap;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(2, $desktop-font-ratio);
+}
+
+.modal-animal-location {
+  margin-top: 1.5rem;
+  color: $modal-text;
+  font-weight: $bold;
+  font-size: type-scale(2, $desktop-font-ratio);
+}
+
+.modal-animal-avalaibilities-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: $btn-bg-color;
+  font-size: type-scale(1, $desktop-font-ratio);
+  padding: 0.5rem 1rem;
+  color: $modal-text;
+  border-radius: 7rem;
+  transition: color 0.2s, background-color 0.2s;
+  position: absolute;
+  bottom: 1.5rem;
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.2rem;
+    fill: $modal-text;
+    transition: fill 0.2s;
+  }
+  &:hover {
+    background-color: $btn-color-orange;
+    color: $btn-bg-color;
+    svg {
+      fill: $btn-bg-color;
+    }
+  }
 }

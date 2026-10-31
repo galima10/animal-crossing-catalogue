@@ -57,13 +57,14 @@ export const headerSlice = createSlice({
           filteredSorts.length === 0
             ? null
             : filteredSorts.length === 1
-              ? filteredSorts[0]
+              ? filteredSorts.shift()
               : filteredSorts;
 
         return;
       }
 
-      state.sort = currentSorts.length === 1 ? currentSorts[0] : currentSorts;
+      state.sort =
+        currentSorts.length === 1 ? currentSorts.shift() : currentSorts;
     },
     removeSort: (state, action: PayloadAction<string>) => {
       if (typeof state.sort === "string") {

@@ -13,7 +13,7 @@ export default function NavIndicator() {
     <div className="paging-indicator">
       <input
         type="number"
-        value={page}
+        value={page ?? ""}
         max={totalPage}
         onChange={(e) => {
           const value = e.target.value;

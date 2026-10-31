@@ -11,6 +11,8 @@ import Header from "./components/organisms/Header";
 
 import { TAB_PATHS } from "./constants/navigationPath";
 
+import ModalScreen from "./components/organisms/ModalScreen";
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +31,7 @@ function App() {
 
         <Route path={TAB_PATHS.seaCreatures} element={<SeaCreaturesPage />} />
       </Routes>
+      <ModalScreen />
     </BrowserRouter>
   );
 }

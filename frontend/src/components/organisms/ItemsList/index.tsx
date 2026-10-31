@@ -14,7 +14,7 @@ export default function ItemsList({ path }: ItemsListProps) {
     <ul className="items-list">
       {items?.data?.map((item, index) => (
         <li key={index}>
-          <ItemCard item={item} />
+          <ItemCard item={item} path={path} />
         </li>
       ))}
     </ul>

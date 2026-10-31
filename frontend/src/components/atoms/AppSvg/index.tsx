@@ -11,6 +11,12 @@ const SeaCreatureSvg = React.lazy(
 const SearchSvg = React.lazy(() => import("@/components/svg/SearchSvg"));
 const FilterSvg = React.lazy(() => import("@/components/svg/FilterSvg"));
 const SortSvg = React.lazy(() => import("@/components/svg/SortSvg"));
+const CloseSvg = React.lazy(() => import("@/components/svg/CloseSvg"));
+const CalendarSvg = React.lazy(() => import("@/components/svg/CalendarSvg"));
+const BirthdaySvg = React.lazy(() => import("@/components/svg/BirthdaySvg"));
+const MaleSvg = React.lazy(() => import("@/components/svg/MaleSvg"));
+const FemaleSvg = React.lazy(() => import("@/components/svg/FemaleSvg"));
+const ClochetteSvg = React.lazy(() => import("@/components/svg/ClochetteSvg"));
 
 export type IconNames = keyof typeof icons;
 interface AppSVGProps {
@@ -27,6 +33,12 @@ const icons = {
   search: SearchSvg,
   filter: FilterSvg,
   sort: SortSvg,
+  close: CloseSvg,
+  calendar: CalendarSvg,
+  birthday: BirthdaySvg,
+  male: MaleSvg,
+  female: FemaleSvg,
+  clochette: ClochetteSvg,
 };
 
 export default function AppSVG({ name }: AppSVGProps) {

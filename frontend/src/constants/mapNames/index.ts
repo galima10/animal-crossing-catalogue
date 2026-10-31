@@ -83,3 +83,17 @@ export const filterColumnsEnumMap = {
     },
   ]
 };
+
+export const apiSvg = {
+  villagers: "villager",
+  furnitures: "furniture",
+  insects: "insect",
+  fishs: "fish",
+  "sea-creatures": "seaCreature",
+}
+
+export const weatherUi = {
+  any_except_rain: "any except rain",
+  any_weather: "any weather",
+  rain_only: "rain only"
+}
