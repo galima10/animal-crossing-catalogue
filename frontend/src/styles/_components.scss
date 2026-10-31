@@ -422,9 +422,6 @@ header {
 }
 
 .modal-close-btn {
-  position: absolute;
-  right: 1rem;
-  top: 1.5rem;
   width: 1.5rem;
   aspect-ratio: 1 / 1;
   svg {
@@ -440,6 +437,31 @@ header {
   }
 }
 
+.modal-goback-btn {
+  background-color: $btn-bg-color;
+  color: $modal-text;
+  font-weight: $bold;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5rem;
+  font-size: type-scale(-1, $desktop-font-ratio);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  &:hover {
+    background-color: $btn-color-orange;
+    color: $btn-bg-color;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: absolute;
+  right: 1rem;
+  top: 1.75rem;
+}
+
 .modal-title {
   display: flex;
   align-items: center;
@@ -450,8 +472,8 @@ header {
   p {
     color: $modal-text;
     font-weight: $bold;
-    font-size: type-scale(4, $desktop-font-ratio);
-    width: calc(100% - 5rem);
+    font-size: type-scale(3.5, $desktop-font-ratio);
+    width: calc(100% - 12rem);
   }
 }
 
@@ -644,7 +666,9 @@ header {
   padding: 0.5rem 1rem;
   color: $modal-text;
   border-radius: 7rem;
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
   position: absolute;
   bottom: 1.5rem;
   svg {
