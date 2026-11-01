@@ -1,7 +1,6 @@
 
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "outDir": "./dist",
     "noEmit": true,
     "target": "ESNext",
