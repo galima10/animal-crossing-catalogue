@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getAllItems(apiPath: string) {
-  const apiUrl = new URL(`${API_URL}${apiPath}`);
+  const apiUrl = new URL(`${API_URL}${apiPath}`, window.location.origin);
 
   const res = await fetch(apiUrl.toString(), {
     method: "GET",

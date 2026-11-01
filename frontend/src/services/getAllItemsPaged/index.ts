@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 import type { QueryParamsType, ApiResponseType } from "@/types/ApiResponseType";
 
 export async function getAllItemsPaged(apiPath: string, params?: QueryParamsType) {
-  const apiUrl = new URL(`${API_URL}${apiPath}`);
+  const apiUrl = new URL(`${API_URL}${apiPath}`, window.location.origin);
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
