@@ -143,7 +143,7 @@ function parseAvalaibility(avalaibility: MonthAvalaibility) {
   const value = avalaibility.value;
   const month = avalaibility.key.split(' ')[1];
   const hemisphere =
-    avalaibility.key.split(' ')[0] === 'NH' ? 'NORTH' : 'SOUTH';
+    avalaibility.key.split(' ').shift() === 'NH' ? 'NORTH' : 'SOUTH';
   let isAllDay: boolean = false;
   if (value === 'All day') isAllDay = true;
 
