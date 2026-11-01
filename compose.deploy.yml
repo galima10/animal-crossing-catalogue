@@ -17,6 +17,8 @@ services:
   migrate:
     image: glamia/acc-migrate:1.0.0
     command: sh -c "npm run pris:mi deploy && npm run seed"
+    restart: "no"
+    exclude_from_hc: true
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
