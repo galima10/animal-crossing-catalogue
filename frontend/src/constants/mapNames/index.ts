@@ -48,7 +48,6 @@ export const filterTableMap = {
   },
 };
 
-
 export const filterColumnsEnumMap = {
   category: [
     {
@@ -81,7 +80,7 @@ export const filterColumnsEnumMap = {
       filterValue: "rain_only",
       name: "rain only",
     },
-  ]
+  ],
 };
 
 export const apiSvg = {
@@ -90,12 +89,19 @@ export const apiSvg = {
   insects: "insect",
   fishs: "fish",
   "sea-creatures": "seaCreature",
-}
+};
 
 export const weatherUi = {
   any_except_rain: "any except rain",
   any_weather: "any weather",
-  rain_only: "rain only"
+  rain_only: "rain only",
+};
+
+export const categoryUi = {
+  houseware: "houseware",
+  miscellaneous: "miscellaneous",
+  ceiling_decor: "ceiling decor",
+  wall_mounted: "wall-mounted",
 }
 
 export const monthsArray = [
@@ -111,7 +117,7 @@ export const monthsArray = [
   "oct",
   "nov",
   "dec",
-]
+];
 
 export const monthsCompleted = {
   jan: "january",
@@ -126,4 +132,19 @@ export const monthsCompleted = {
   oct: "october",
   nov: "november",
   dec: "december",
-}
+};
+
+export const monthNumber = {
+  1: "jan",
+  2: "feb",
+  3: "mar",
+  4: "apr",
+  5: "may",
+  6: "jun",
+  7: "jul",
+  8: "aug",
+  9: "sep",
+  10: "oct",
+  11: "nov",
+  12: "dec",
+};

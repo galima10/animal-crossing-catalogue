@@ -89,7 +89,7 @@ export function FilterModule({
                     )?.name,
                   ),
                 )
-              : "NA"}
+              : "––"}
           </small>
         </span>
         <span

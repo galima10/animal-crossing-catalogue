@@ -1,7 +1,7 @@
 import type { OneItemResponse } from "@/types/ApiResponseType";
 import AppSVG from "@/components/atoms/AppSvg";
 import { toCapitalize } from "@/utils/toCapitalize";
-import { weatherUi } from "@/constants/mapNames";
+import { weatherUi, monthNumber, categoryUi } from "@/constants/mapNames";
 import { type Dispatch, type SetStateAction } from "react";
 
 interface ModalInfosProps {
@@ -34,7 +34,9 @@ export default function ModalInfos({
         <div className="modal-item-content modal-villager-infos">
           <div className="modal-villager-birthday">
             <AppSVG name="birthday" />
-            {selected?.item?.birthday}
+            {selected?.item?.birthday.split("/")[1]}{" "}
+            {toCapitalize(monthNumber[selected?.item?.birthday.split("/")[0]])}
+            {"."}
           </div>
           <p className="modal-villager-species">
             Species : {selected?.item?.speciesName}
@@ -46,7 +48,7 @@ export default function ModalInfos({
       ) : selected?.type === "furniture" ? (
         <div className="modal-item-content modal-furniture-infos">
           <p className="modal-furniture-category">
-            {toCapitalize(selected?.item?.category)}
+            {toCapitalize(categoryUi[selected?.item?.category?.toLowerCase()])}
           </p>
           <div className="modal-furniture-prices">
             <div>
