@@ -1,0 +1,150 @@
+export const tabButtonLabels = {
+  all: "everything",
+  villager: "villagers",
+  furniture: "furnitures",
+  insect: "insects",
+  fish: "fishs",
+  seaCreature: "sea creatures",
+};
+
+export const apiNavigationMap = {
+  "all-items": "all",
+  villagers: "villagers",
+  furnitures: "furnitures",
+  insects: "insects",
+  fishs: "fishs",
+  "sea-creatures": "sea-creatures",
+};
+
+export const queryParamsMap = {
+  name: "name",
+  gender: "gender",
+  speciesName: "speciesName",
+  personalityName: "personalityName",
+  buyingPrice: "buyingPrice",
+  sellingPrice: "sellingPrice",
+  category: "category",
+  monthlyAvalaibility: "monthly_avalaibility",
+};
+
+export const filterTableMap = {
+  personality_id: {
+    label: "personality",
+  },
+  species_id: {
+    label: "species",
+  },
+  sea_place_id: {
+    label: "location",
+  },
+  insect_location_id: {
+    label: "location",
+  },
+  category: {
+    label: "category",
+  },
+  weather: {
+    label: "weather",
+  },
+};
+
+export const filterColumnsEnumMap = {
+  category: [
+    {
+      filterValue: "houseware",
+      name: "houseware",
+    },
+    {
+      filterValue: "miscellaneous",
+      name: "miscellaneous",
+    },
+    {
+      filterValue: "ceiling_decor",
+      name: "ceiling decor",
+    },
+    {
+      filterValue: "wall_mounted",
+      name: "wall-mounted",
+    },
+  ],
+  weather: [
+    {
+      filterValue: "any_except_rain",
+      name: "any except rain",
+    },
+    {
+      filterValue: "any_weather",
+      name: "any weather",
+    },
+    {
+      filterValue: "rain_only",
+      name: "rain only",
+    },
+  ],
+};
+
+export const apiSvg = {
+  villagers: "villager",
+  furnitures: "furniture",
+  insects: "insect",
+  fishs: "fish",
+  "sea-creatures": "seaCreature",
+};
+
+export const weatherUi = {
+  any_except_rain: "any except rain",
+  any_weather: "any weather",
+  rain_only: "rain only",
+};
+
+export const categoryUi = {
+  houseware: "houseware",
+  miscellaneous: "miscellaneous",
+  ceiling_decor: "ceiling decor",
+  wall_mounted: "wall-mounted",
+}
+
+export const monthsArray = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
+];
+
+export const monthsCompleted = {
+  jan: "january",
+  feb: "february",
+  mar: "march",
+  apr: "april",
+  may: "may",
+  jun: "june",
+  jul: "july",
+  aug: "august",
+  sep: "september",
+  oct: "october",
+  nov: "november",
+  dec: "december",
+};
+
+export const monthNumber = {
+  1: "jan",
+  2: "feb",
+  3: "mar",
+  4: "apr",
+  5: "may",
+  6: "jun",
+  7: "jul",
+  8: "aug",
+  9: "sep",
+  10: "oct",
+  11: "nov",
+  12: "dec",
+};

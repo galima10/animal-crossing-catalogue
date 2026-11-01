@@ -1,7 +1,12 @@
+import { API_PATH } from "@/constants/apiPath";
+import ItemsList from "@/components/organisms/ItemsList";
+import NavArrowButtons from "@/components/molecules/NavArrowButtons";
+
 export default function EverythingPage() {
   return (
     <main>
-      <h1>Every items</h1>
+      <ItemsList path={API_PATH.all} />
+      <NavArrowButtons />
     </main>
   );
 }

@@ -7,8 +7,9 @@ export class InsectLocationService {
   async findAll() {
     return await this.prisma.$queryRaw`
       SELECT
-        *
-      FROM insect_locations
+        il.id AS "filterValue",
+        il.name
+      FROM insect_locations il
       ORDER BY name
     `;
   }

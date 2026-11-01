@@ -1,10 +1,12 @@
-import TabButton from "@/components/atoms/TabButton";
+import logo from "@/assets/images/logo.png";
 
-export default function HomePage(){
-    return (
-        <main>
-            <h1>Home</h1>
-            <TabButton />
-        </main>
-    );
-};
+export default function HomePage() {
+  return (
+    <main>
+      <div className="main-title">
+        <img src={logo} alt="" />
+        <p className="main-subtitle">Catalog</p>
+      </div>
+    </main>
+  );
+}

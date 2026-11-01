@@ -11,10 +11,17 @@ const SeaCreatureSvg = React.lazy(
 const SearchSvg = React.lazy(() => import("@/components/svg/SearchSvg"));
 const FilterSvg = React.lazy(() => import("@/components/svg/FilterSvg"));
 const SortSvg = React.lazy(() => import("@/components/svg/SortSvg"));
+const CloseSvg = React.lazy(() => import("@/components/svg/CloseSvg"));
+const CalendarSvg = React.lazy(() => import("@/components/svg/CalendarSvg"));
+const BirthdaySvg = React.lazy(() => import("@/components/svg/BirthdaySvg"));
+const MaleSvg = React.lazy(() => import("@/components/svg/MaleSvg"));
+const FemaleSvg = React.lazy(() => import("@/components/svg/FemaleSvg"));
+const ClochetteSvg = React.lazy(() => import("@/components/svg/ClochetteSvg"));
+const HomeSvg = React.lazy(() => import("@/components/svg/HomeSvg"));
 
+export type IconNames = keyof typeof icons;
 interface AppSVGProps {
-  color: string;
-  name: keyof typeof icons;
+  name: IconNames;
 }
 
 const icons = {
@@ -27,9 +34,16 @@ const icons = {
   search: SearchSvg,
   filter: FilterSvg,
   sort: SortSvg,
+  close: CloseSvg,
+  calendar: CalendarSvg,
+  birthday: BirthdaySvg,
+  male: MaleSvg,
+  female: FemaleSvg,
+  clochette: ClochetteSvg,
+  home: HomeSvg,
 };
 
-export default function AppSVG({ name, color }: AppSVGProps) {
+export default function AppSVG({ name }: AppSVGProps) {
   const Comp = icons[name];
 
   if (!Comp) {
@@ -39,7 +53,7 @@ export default function AppSVG({ name, color }: AppSVGProps) {
 
   return (
     <Suspense fallback={<div>Chargement...</div>}>
-      <Comp color={color} />
+      <Comp />
     </Suspense>
   );
 }

@@ -1,7 +1,7 @@
-export default function SearchSvg({ color }: { color: string }) {
+export default function SearchSvg() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none">
-      <g fill={color} clip-path="url(#a)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+      <g clipPath="url(#a)">
         <path
           fillRule="evenodd"
           d="M13.9 0h-.5C5.5.4-.9 7.6.1 15.5A14 14 0 0 0 20.3 26c1-.4 2 .7 2.7 1.4l.1.1 1.2 1.4 1 1.2q.3 0 .4.3c.6.7 1.3 1.5 1.9 1.5.9 0 1.7-.8 2.4-1.4l.2-.3c.7-.6 1.8-1.8 1.8-2.7-.1-.9-1-1.6-1.8-2.2l-.6-.6-.9-.8-1.6-1.5-.2-.2c-.4-.4-1-.9-.9-1.4q.1-.7.5-1.6l.3-.7q.5-1.3.6-2.6a14 14 0 0 0-4.2-12.2c-2.4-2.4-6-3.8-9.3-3.8m-.6 3.8a10.1 10.1 0 1 1 1.2 20.3 10.1 10.1 0 0 1-1.2-20.3"

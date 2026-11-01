@@ -7,8 +7,9 @@ export class SeaPlaceService {
   async findAll() {
     return await this.prisma.$queryRaw`
       SELECT
-        *
-      FROM sea_places
+        sp.id AS "filterValue",
+        sp.name
+      FROM sea_places sp
       ORDER BY name
     `;
   }

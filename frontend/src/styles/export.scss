@@ -1,9 +1,0 @@
-@use "@/styles/abstracts/variables" as *;
-
-// Export to components
-:root {
-  --btn-bg-color: #{$btn-bg-color};
-  --btn-text-color: #{$btn-text-color};
-  --btn-text-color-hover: #{$btn-text-color-hover};
-  --btn-bg-color-active: #{$btn-bg-color-active};
-}
