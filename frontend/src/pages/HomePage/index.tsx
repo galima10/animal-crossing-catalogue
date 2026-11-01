@@ -5,7 +5,7 @@ export default function HomePage() {
     <main>
       <div className="main-title">
         <img src={logo} alt="" />
-        <p className="main-subtitle">Catalogue</p>
+        <p className="main-subtitle">Catalog</p>
       </div>
     </main>
   );
