@@ -1,4 +1,12 @@
 node_modules/
 dist/
-.env
+.env*
 *.tsbuildinfo
+eslint.config.js
+README.md
+.git*
+test/
+Dockerfile
+.dockerignore
+.vscode/
+*.log
