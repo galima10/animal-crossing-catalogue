@@ -51,14 +51,18 @@ export default function ModalInfos({
             {toCapitalize(categoryUi[selected?.item?.category?.toLowerCase()])}
           </p>
           <div className="modal-furniture-prices">
-            <div>
-              <p>Sell : {selected?.item?.sellingPrice} </p>
-              <AppSVG name="clochette" />
-            </div>
-            <div>
-              <p>Buy : {selected?.item?.buyingPrice} </p>
-              <AppSVG name="clochette" />
-            </div>
+            {selected?.item?.sellingPrice && (
+              <div>
+                <p>Sell : {selected?.item?.sellingPrice} </p>
+                <AppSVG name="clochette" />
+              </div>
+            )}
+            {selected?.item?.buyingPrice && (
+              <div>
+                <p>Buy : {selected?.item?.buyingPrice} </p>
+                <AppSVG name="clochette" />
+              </div>
+            )}
           </div>
           {selected?.item?.variations &&
             selected?.item?.variations?.length > 0 && (
